@@ -6,21 +6,27 @@ import morgan from 'morgan';
 const PORT = 4000;
 const app = express();
 const logger = morgan('dev');
-
-function handleHome(req, res) {
-  res.send('Hello');
-}
-
-const handleProtected = (req, res) => {
-  res.send('<h2>Welcome to the Private Lounge</h2>');
-};
-
 app.use(logger);
-app.get('/', handleHome);
-app.get('/hello', (req, res) => {
-  res.send('<h1> MY NAME IS BONNIE</h1>');
-});
-app.get('/protected', handleProtected);
+
+const globalRouter = express.Router();
+
+const handleHome = (req, res) => res.send('Home');
+globalRouter.get('/', handleHome);
+
+const userRouter = express.Router();
+
+const handleEditUser = (req, res) => res.send('Edit User');
+
+userRouter.get('/edit', handleEditUser);
+
+const handleWatchVideo = (req, res) => res.send('Watch Video');
+
+const videoRouter = express.Router();
+videoRouter.get('/watch', handleWatchVideo);
+
+app.use('/', globalRouter);
+app.use('/users', userRouter);
+app.use('/videos', videoRouter);
 
 const handleListening = () => {
   console.log(`I am listening maintenant on localhost:${PORT}`);
