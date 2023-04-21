@@ -1,10 +1,41 @@
-export const trendingVideos = (req, res) => res.render('home');
-
-export const see = (req, res) => {
-  console.log(req.params);
-  return res.render('watch');
+import { Video } from '../models/Video';
+export const home = async (req, res) => {
+  const videos = await Video.find({});
+  return res.render('home', { pageTitle: 'Home', videos });
 };
-export const edit = (req, res) => res.send('edit');
+
+export const watch = (req, res) => {
+  const { id } = req.params;
+  return res.render('watch', { pageTitle: `Watching` });
+};
+export const getEdit = (req, res) => {
+  const { id } = req.params;
+  return res.render('edit', { pageTitle: `Editing` });
+};
+
+export const postEdit = (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+  return res.redirect(`/videos/${id}`);
+};
+
 export const search = (req, res) => res.send('Search video');
 export const remove = (req, res) => res.send('Remove delete');
-export const upload = (req, res) => res.send('upload video');
+export const getUpload = (req, res) =>
+  res.render('upload', { pageTitle: `Uploading Video` });
+export const postUpload = async (req, res) => {
+  const { title, description, hashtags } = req.body;
+  const video = new Video({
+    title,
+    description,
+    createdAt: Date.now(),
+    hashtags: hashtags.split(',').map((n) => `#${n.trim()}`),
+    meta: {
+      views: 0,
+      rating: 0,
+    },
+  });
+  const dbVideo = await video.save();
+  console.log(dbVideo);
+  return res.redirect(`/`);
+};
