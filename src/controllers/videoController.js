@@ -25,17 +25,30 @@ export const getUpload = (req, res) =>
   res.render('upload', { pageTitle: `Uploading Video` });
 export const postUpload = async (req, res) => {
   const { title, description, hashtags } = req.body;
-  const video = new Video({
-    title,
-    description,
-    createdAt: Date.now(),
-    hashtags: hashtags.split(',').map((n) => `#${n.trim()}`),
-    meta: {
-      views: 0,
-      rating: 0,
-    },
-  });
-  const dbVideo = await video.save();
-  console.log(dbVideo);
-  return res.redirect(`/`);
+  try {
+    //can do new Video() or Video.create()
+    await Video.create({
+      title,
+      description,
+      hashtags: hashtags.split(',').map((n) => `#${n.trim()}`),
+    });
+    // const video = new Video({
+    //   title,
+    //   description,
+    //   createdAt: Date.now(),
+    //   hashtags: hashtags.split(',').map((n) => `#${n.trim()}`),
+    //   meta: {
+    //     views: 0,
+    //     rating: 0,
+    //   },
+    // });
+    //  const dbVideo = await video.save();
+    return res.redirect(`/`);
+  } catch (error) {
+    const errorMsg = error._message;
+    return res.render('upload', {
+      pageTitle: `Uploading Video`,
+      error: errorMsg,
+    });
+  }
 };
