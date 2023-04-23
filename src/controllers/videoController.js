@@ -39,8 +39,16 @@ export const postEdit = async (req, res) => {
   return res.redirect(`/videos/${id}`);
 };
 
-export const search = (req, res) => res.send('Search video');
-export const remove = (req, res) => res.send('Remove delete');
+export const deleteVideo = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.exists({ _id: id });
+
+  if (!video) {
+    return res.render('404', { pageTitle: 'Video Not Found' });
+  }
+  await Video.findByIdAndDelete(id);
+  return res.redirect(`/`);
+};
 export const getUpload = (req, res) =>
   res.render('upload', { pageTitle: `Uploading Video` });
 export const postUpload = async (req, res) => {
