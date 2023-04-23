@@ -15,5 +15,5 @@ videoRouter.get('/:id', watch);
 // videoRouter.post('/:id/edit', postEdit);
 // You can do both post/get request in one line of code
 
-videoRouter.route('/:id/edit').get(getEdit).post(postEdit);
+videoRouter.route('/:id([0-9a-f]{24})/edit').get(getEdit).post(postEdit);
 // videoRouter.get('/:id/remove', remove);
