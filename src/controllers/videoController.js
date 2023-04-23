@@ -58,7 +58,7 @@ export const postUpload = async (req, res) => {
     await Video.create({
       title,
       description,
-      hashtags: hashtags.split(',').map((n) => `#${n.trim()}`),
+      hashtags: Video.formatHashtags(hashtags),
     });
     // const video = new Video({
     //   title,
