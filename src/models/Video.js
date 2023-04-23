@@ -12,4 +12,5 @@ const videoSchema = new mongoose.Schema({
   },
 });
 
+//     .map((word) => (word.startsWith('#') ? word : `#${word.trim()}`));
 export const Video = mongoose.model('Video', videoSchema);
