@@ -72,3 +72,19 @@ export const postUpload = async (req, res) => {
     });
   }
 };
+
+export const search = async (req, res) => {
+  const { keyword } = req.query;
+
+  if (keyword) {
+    const videos = await Video.find({
+      title: {
+        $regex: new RegExp(keyword, 'i'),
+      },
+    });
+    console.log(videos);
+    return res.render('search', { pageTitle: 'Search Results', videos });
+  }
+
+  return res.render('search', { pageTitle: 'Search' });
+};
