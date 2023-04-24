@@ -1,10 +1,16 @@
 extends base
 
 block content 
+    if errorMessage 
+        h3=errorMessage
     form(method="POST")
         input(type="email" required name="email" placeholder="Email")
-        input(type="text" required name="username" placeholder="Username")
         input(type="text" required, name="name" placeholder="Name")
         input(type="password" required placeholder="Password", name="password")
+        input(type="password" required placeholder="Confirm Password" name="passwordConfirm")
         input(type="text" name="location" placeholder="Location")
         input(type="submit" value="Join")
+    hr
+    section
+        span Already have an account? 
+        a(href="/login")  Log in now &rarr;
