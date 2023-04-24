@@ -2,6 +2,7 @@ import { User } from '../models/User';
 export const getJoin = (req, res) => res.render('join', { pageTitle: 'Join' });
 import bcrypt from 'bcrypt';
 
+export const getJoin = (req, res) => res.render('join', { pageTitle: 'Join' });
 export const postJoin = async (req, res) => {
   const { email, name, password, location, passwordConfirm } = req.body;
   const emailExists = await User.exists({ email });
