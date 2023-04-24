@@ -1,5 +1,4 @@
 import { User } from '../models/User';
-export const getJoin = (req, res) => res.render('join', { pageTitle: 'Join' });
 import bcrypt from 'bcrypt';
 
 export const getJoin = (req, res) => res.render('join', { pageTitle: 'Join' });
@@ -63,5 +62,10 @@ export const postLogin = async (req, res) => {
   req.session.user = user;
   return res.redirect('/');
 };
-export const logout = (req, res) => res.send('Logout');
+
+export const getLogout = (req, res) => {
+  delete req.session.user;
+  req.session.loggedIn = false;
+  res.redirect('/');
+};
 export const see = (req, res) => res.send('See Profile');
