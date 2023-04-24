@@ -38,6 +38,7 @@ export const edit = (req, res) => res.send('Editing Profile');
 export const remove = (req, res) => res.send('Delete User');
 export const getLogin = (req, res) =>
   res.render('login', { pageTitle: 'Login' });
+
 export const postLogin = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -54,9 +55,11 @@ export const postLogin = async (req, res) => {
   if (!ok) {
     return res.status(400).render('login', {
       pageTitle,
-      errorMessage: 'Incorrect password',
+      errorMessage: 'Incorrect password.',
     });
   }
+  req.session.loggedIn = true;
+  req.session.user = user;
   return res.redirect('/');
 };
 export const logout = (req, res) => res.send('Logout');
