@@ -1,4 +1,7 @@
 // initialize everything
+import 'dotenv/config';
+
+console.log(process.env.DB_URL);
 import './db';
 import './models/Video';
 import './models/User';

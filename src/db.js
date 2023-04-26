@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 
-const url = 'mongodb://127.0.0.1:27017/wetube'; // url slash db name
-
-mongoose.connect(url, {
+mongoose.connect(process.env.DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
