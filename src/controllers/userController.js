@@ -63,10 +63,10 @@ export const postLogin = async (req, res) => {
   return res.redirect('/');
 };
 
-export const getLogout = (req, res) => {
-  delete req.session.user;
-  req.session.loggedIn = false;
-  res.redirect('/');
+export const logout = (req, res) => {
+  req.session.destroy();
+  res.clearCookie('connect.sid', { path: '/' });
+  return res.redirect('/');
 };
 export const see = (req, res) => res.send('See Profile');
 
