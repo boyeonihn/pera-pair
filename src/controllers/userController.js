@@ -82,3 +82,13 @@ export const startGithubLogin = (req, res) => {
 
   return res.redirect(finalUrl);
 };
+
+export const finishGithubLogin = async (req, res) => {
+  const baseUrl = 'https://github.com/login/oauth/access_token';
+  const config = {
+    client_id: process.env.GH_CLIENT,
+    client_secret: process.env.GH_SECRET,
+    code: req.query.code,
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
