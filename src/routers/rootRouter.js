@@ -4,7 +4,7 @@ import {
   postJoin,
   getLogin,
   postLogin,
-  getLogout,
+  logout,
 } from '../controllers/userController';
 import { home, search } from '../controllers/videoController';
 
@@ -14,4 +14,4 @@ rootRouter.get('/', home);
 rootRouter.route('/join').get(getJoin).post(postJoin);
 rootRouter.route('/login').get(getLogin).post(postLogin);
 rootRouter.get('/search', search);
-rootRouter.get('/logout', getLogout);
+rootRouter.get('/logout', logout);
