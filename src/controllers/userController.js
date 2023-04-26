@@ -51,6 +51,12 @@ export const postLogin = async (req, res) => {
     });
   }
 
+  if (user.socialOnly) {
+    return res.status(400).render('login', {
+      pageTitle,
+      errorMessage: 'Please login with your OAuth',
+    });
+  }
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) {
     return res.status(400).render('login', {
@@ -68,6 +74,7 @@ export const logout = (req, res) => {
   res.clearCookie('connect.sid', { path: '/' });
   return res.redirect('/');
 };
+
 export const see = (req, res) => res.send('See Profile');
 
 export const startGithubLogin = (req, res) => {
