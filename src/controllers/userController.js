@@ -73,14 +73,14 @@ export const postLogin = async (req, res) => {
   const pageTitle = 'Login';
 
   if (!user) {
-    return res.status(400).render('login', {
+    return res.status(400).render('users/login', {
       pageTitle,
       errorMessage: 'An account with this username does not exist',
     });
   }
 
   if (user.socialOnly) {
-    return res.status(400).render('login', {
+    return res.status(400).render('users/login', {
       pageTitle,
       errorMessage: 'Please login with your OAuth',
     });
