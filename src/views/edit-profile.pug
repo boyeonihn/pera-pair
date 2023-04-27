@@ -1,0 +1,8 @@
+extends base
+
+block content
+    form(method="POST")
+        input(type="email" required name="email" placeholder="Email" value=`${loggedInUser.email}`)
+        input(type="text" required, name="name" placeholder="Name" value=`${loggedInUser.name}`)
+        input(type="text" name="location" placeholder="Location" value=`${loggedInUser.location ? loggedInUser.location : 'none'}`)
+        input(type="submit" value="Update Profile")
