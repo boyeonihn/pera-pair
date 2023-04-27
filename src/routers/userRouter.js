@@ -6,8 +6,14 @@ import {
   see,
   startGithubLogin,
   finishGithubLogin,
+  getChangePw,
+  postChangePw,
 } from '../controllers/userController';
-import { protectUrlMiddleware, publicOnlyMiddleware } from '../middlewares';
+import {
+  protectUrlMiddleware,
+  publicOnlyMiddleware,
+  passwordsUsersOnlyMiddleware,
+} from '../middlewares';
 
 export const userRouter = express.Router();
 
@@ -16,3 +22,8 @@ userRouter.get('/delete', remove);
 userRouter.get(':id', see);
 userRouter.get('/github/start', publicOnlyMiddleware, startGithubLogin);
 userRouter.get('/github/finish', publicOnlyMiddleware, finishGithubLogin);
+userRouter
+  .route('/change-password')
+  .all(protectUrlMiddleware, passwordsUsersOnlyMiddleware)
+  .get(getChangePw)
+  .post(postChangePw);
