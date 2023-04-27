@@ -1,4 +1,4 @@
-extends base
+extends ../base
 
 block content
     if errorMessage 
@@ -8,3 +8,6 @@ block content
         input(type="text" required, name="name" placeholder="Name" value=`${loggedInUser.name}`)
         input(type="text" name="location" placeholder="Location" value=`${loggedInUser.location ? loggedInUser.location : 'none'}`)
         input(type="submit" value="Update Profile")
+        hr
+        if !loggedInUser.socialOnly
+            a(href="change-password") Change Password
