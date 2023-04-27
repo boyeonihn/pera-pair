@@ -1,7 +1,8 @@
 import { User } from '../models/User';
 import bcrypt from 'bcrypt';
 
-export const getJoin = (req, res) => res.render('join', { pageTitle: 'Join' });
+export const getJoin = (req, res) =>
+  res.render('users/join', { pageTitle: 'Join' });
 export const postJoin = async (req, res) => {
   const { email, name, password, location, passwordConfirm } = req.body;
   const emailExists = await User.exists({ email });
@@ -35,7 +36,7 @@ export const postJoin = async (req, res) => {
 };
 
 export const getEdit = (req, res) => {
-  res.render('edit-profile', { pageTitle: 'Edit Profile' });
+  res.render('users/edit-profile', { pageTitle: 'Edit Profile' });
 };
 export const postEdit = async (req, res) => {
   const {
@@ -64,7 +65,7 @@ export const postEdit = async (req, res) => {
 
 export const remove = (req, res) => res.send('Delete User');
 export const getLogin = (req, res) =>
-  res.render('login', { pageTitle: 'Login' });
+  res.render('users/login', { pageTitle: 'Login' });
 
 export const postLogin = async (req, res) => {
   const { email, password } = req.body;
@@ -86,7 +87,7 @@ export const postLogin = async (req, res) => {
   }
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) {
-    return res.status(400).render('login', {
+    return res.status(400).render('users/login', {
       pageTitle,
       errorMessage: 'Incorrect password.',
     });
