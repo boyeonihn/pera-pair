@@ -195,3 +195,28 @@ export const finishGithubLogin = async (req, res) => {
     return res.redirect('/login');
   }
 };
+
+export const getChangePw = (req, res) => {
+  res.render('users/change-password', { pageTitle: 'Change Password' });
+};
+export const postChangePw = async (req, res) => {
+  const pageTitle = 'Change Password';
+  const {
+    session: {
+      user: { _id, password },
+    },
+    body: { newPw, confirmPw, oldPw },
+  } = req;
+
+  const ok = await bcrypt.compare(oldPw, password);
+  if (!ok) {
+    return res.status(400).render('users/change-password', {
+      pageTitle,
+      errorMessage: 'The old password you entered is incorrect.',
+    });
+  } else if (newPw !== confirmPw) {
+    return res.status(400).render('users/change-password', {
+      pageTitle,
+      errorMessage: 'The new passwords do not match.',
+    });
+  }
