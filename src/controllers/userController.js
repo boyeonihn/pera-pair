@@ -44,6 +44,15 @@ export const postEdit = async (req, res) => {
     },
     body: { name, email, location },
   } = req;
+
+  const exists = await User.exists({ email });
+
+  if (exists) {
+    return res.status(400).render('edit-profile', {
+      pageTitle: 'Edit Profile',
+      errorMessage: `Sorry, an account with that email already exists`,
+    });
+  }
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     { email, name, location },
