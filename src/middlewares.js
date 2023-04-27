@@ -23,7 +23,7 @@ export const publicOnlyMiddleware = (req, res, next) => {
 
 // to check if user's account is through social media
 export const passwordsUsersOnlyMiddleware = (req, res, next) => {
-  if (!req.session.loggedInUser.socialOnly) {
+  if (!req.session.user.socialOnly) {
     return next();
   } else {
     return res.redirect('/');
