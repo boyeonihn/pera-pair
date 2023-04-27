@@ -203,12 +203,13 @@ export const postChangePw = async (req, res) => {
   const pageTitle = 'Change Password';
   const {
     session: {
-      user: { _id, password },
+      user: { _id },
     },
     body: { newPw, confirmPw, oldPw },
   } = req;
 
-  const ok = await bcrypt.compare(oldPw, password);
+  const user = await User.findById(_id);
+  const ok = await bcrypt.compare(oldPw, user.password);
   if (!ok) {
     return res.status(400).render('users/change-password', {
       pageTitle,
@@ -220,3 +221,7 @@ export const postChangePw = async (req, res) => {
       errorMessage: 'The new passwords do not match.',
     });
   }
+  user.password = newPw;
+  await user.save();
+  return res.redirect('/logout');
+};
