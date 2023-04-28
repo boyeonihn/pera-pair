@@ -1,4 +1,5 @@
 import { User } from '../models/User';
+import { Video } from '../models/Video';
 import bcrypt from 'bcrypt';
 
 export const getJoin = (req, res) =>
@@ -103,8 +104,6 @@ export const logout = (req, res) => {
   res.clearCookie('connect.sid', { path: '/' });
   return res.redirect('/');
 };
-
-export const see = (req, res) => res.send('See Profile');
 
 export const startGithubLogin = (req, res) => {
   const baseUrl = `https://github.com/login/oauth/authorize`;
@@ -225,4 +224,19 @@ export const postChangePw = async (req, res) => {
   user.password = newPw;
   await user.save();
   return res.redirect('/logout');
+};
+
+export const getProfile = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+
+  const videos = await Video.find({ owner: user._id });
+  if (!user) {
+    return res.status(404).render('404', { pageTitle: 'Not Found' });
+  }
+  return res.render('users/profile', {
+    pageTitle: `${user.name}'s Profile`,
+    user,
+    videos,
+  });
 };
