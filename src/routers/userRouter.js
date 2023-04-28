@@ -13,11 +13,16 @@ import {
   protectUrlMiddleware,
   publicOnlyMiddleware,
   passwordsUsersOnlyMiddleware,
+  uploadFiles,
 } from '../middlewares';
 
 export const userRouter = express.Router();
 
-userRouter.route('/edit').all(protectUrlMiddleware).get(getEdit).post(postEdit);
+userRouter
+  .route('/edit')
+  .all(protectUrlMiddleware)
+  .get(getEdit)
+  .post(uploadFiles.single('avatar'), postEdit);
 userRouter.get('/delete', remove);
 userRouter.get(':id', see);
 userRouter.get('/github/start', publicOnlyMiddleware, startGithubLogin);
