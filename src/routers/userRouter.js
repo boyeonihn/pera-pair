@@ -3,11 +3,11 @@ import {
   remove,
   getEdit,
   postEdit,
-  see,
   startGithubLogin,
   finishGithubLogin,
   getChangePw,
   postChangePw,
+  getProfile,
 } from '../controllers/userController';
 import {
   protectUrlMiddleware,
@@ -24,7 +24,7 @@ userRouter
   .get(getEdit)
   .post(uploadAvatar.single('avatar'), postEdit);
 userRouter.get('/delete', remove);
-userRouter.get(':id', see);
+userRouter.get('/:id', getProfile);
 userRouter.get('/github/start', publicOnlyMiddleware, startGithubLogin);
 userRouter.get('/github/finish', publicOnlyMiddleware, finishGithubLogin);
 userRouter
