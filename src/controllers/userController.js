@@ -41,15 +41,15 @@ export const getEdit = (req, res) => {
 export const postEdit = async (req, res) => {
   const {
     session: {
-      user: { _id },
+      user: { _id, email: userEmail },
     },
     body: { name, email, location },
   } = req;
 
   const exists = await User.exists({ email });
 
-  if (exists) {
-    return res.status(400).render('edit-profile', {
+  if (userEmail !== email && exists) {
+    return res.status(400).render('users/edit-profile', {
       pageTitle: 'Edit Profile',
       errorMessage: `Sorry, an account with that email already exists`,
     });
