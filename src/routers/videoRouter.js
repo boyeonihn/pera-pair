@@ -7,7 +7,7 @@ import {
   postUpload,
   deleteVideo,
 } from '../controllers/videoController';
-import { protectUrlMiddleware } from '../middlewares';
+import { protectUrlMiddleware, uploadVideo } from '../middlewares';
 
 export const videoRouter = express.Router();
 
@@ -15,7 +15,7 @@ videoRouter
   .route('/upload')
   .all(protectUrlMiddleware)
   .get(getUpload)
-  .post(postUpload); // need to put this on the top because express might consider "upload" as a valid :id parameter
+  .post(uploadVideo.single('video'), postUpload); // need to put this on the top because express might consider "upload" as a valid :id parameter
 videoRouter.get('/:id([0-9a-f]{24})', watch);
 // videoRouter.get('/:id/edit', getEdit);
 // videoRouter.post('/:id/edit', postEdit);
