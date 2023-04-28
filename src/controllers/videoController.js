@@ -62,25 +62,14 @@ export const postUpload = async (req, res) => {
   } = req;
 
   try {
-    //can do new Video() or Video.create()
-    await Video.create({
+    const newVideo = await Video.create({
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),
       fileUrl,
       owner: _id,
     });
-    // const video = new Video({
-    //   title,
-    //   description,
-    //   createdAt: Date.now(),
-    //   hashtags: hashtags.split(',').map((n) => `#${n.trim()}`),
-    //   meta: {
-    //     views: 0,
-    //     rating: 0,
-    //   },
-    // });
-    //  const dbVideo = await video.save();
+
     return res.redirect(`/`);
   } catch (error) {
     const errorMsg = error._message;
