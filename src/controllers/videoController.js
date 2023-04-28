@@ -1,4 +1,5 @@
 import { Video } from '../models/Video';
+import { User } from '../models/User';
 export const home = async (req, res) => {
   const videos = await Video.find({}).sort({ createdAt: 'desc' });
   return res.render('home', { pageTitle: 'Home', videos });
@@ -69,6 +70,9 @@ export const postUpload = async (req, res) => {
       fileUrl,
       owner: _id,
     });
+    const user = await User.findById(_id);
+    user.videos.push(newVideo._id);
+    user.save();
 
     return res.redirect(`/`);
   } catch (error) {
