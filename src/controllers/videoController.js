@@ -51,7 +51,9 @@ export const deleteVideo = async (req, res) => {
 };
 export const getUpload = (req, res) =>
   res.render('upload', { pageTitle: `Uploading Video` });
+
 export const postUpload = async (req, res) => {
+  const { path: fileUrl } = req.file;
   const { title, description, hashtags } = req.body;
   try {
     //can do new Video() or Video.create()
@@ -59,6 +61,7 @@ export const postUpload = async (req, res) => {
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),
+      fileUrl,
     });
     // const video = new Video({
     //   title,
