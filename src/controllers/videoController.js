@@ -6,7 +6,7 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id);
+  const video = await Video.findById(id).populate('owner');
   if (video) {
     return res.render('watch', { pageTitle: video.title, video });
   }
@@ -68,6 +68,7 @@ export const postUpload = async (req, res) => {
       description,
       hashtags: Video.formatHashtags(hashtags),
       fileUrl,
+      owner: _id,
     });
     // const video = new Video({
     //   title,
