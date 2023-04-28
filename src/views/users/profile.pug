@@ -1,0 +1,10 @@
+extends ../base
+include ../mixins/video
+
+block content 
+    if loggedInUser._email === user._email
+        h2 My Profile 
+    else 
+        h2 #{user.name}'s Profile
+    each video in videos
+        +video(video)
