@@ -19,6 +19,10 @@ module.exports = {
           },
         }, // we are applying THESE transformations - babel loader
       },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'], // in reverse order bc webpack starts from end to front
+      },
     ],
   },
 };
