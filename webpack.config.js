@@ -7,3 +7,18 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'assets', 'js'),
   },
+
+  module: {
+    rules: [
+      {
+        test: /\.js$/, // we want to take all the JS files
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [['@babel/preset-env', { targets: 'defaults' }]],
+          },
+        }, // we are applying THESE transformations - babel loader
+      },
+    ],
+  },
+};
