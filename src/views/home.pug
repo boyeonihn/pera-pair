@@ -2,8 +2,11 @@ extends base
 include mixins/video
 
 block content
-    ul 
+    div.video-grid 
         each videoUnit in videos
             +video(videoUnit)
+            +video(videoUnit)
+            +video(videoUnit)  
+            +video(videoUnit)
         else 
-            li sorry, nothing found. 
+            span.empty_message No videos found. 
