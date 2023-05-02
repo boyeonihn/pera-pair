@@ -228,7 +228,13 @@ export const postChangePw = async (req, res) => {
 
 export const getProfile = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id).populate('videos');
+  const user = await User.findById(id).populate({
+    path: 'videos',
+    populate: {
+      path: 'owner',
+      model: 'User',
+    },
+  });
   const videos = await Video.find({ owner: user._id });
 
   if (!user) {
