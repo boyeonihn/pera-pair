@@ -8,6 +8,9 @@ const timeline = document.getElementById('timeline');
 const fullscreenBtn = document.getElementById('fullscreen');
 const videoContainer = document.getElementById('videoContainer');
 const videoControls = document.getElementById('videoControls');
+
+let userVolume = 0.5;
+video.value = userVolume;
 const handlePlay = (e) => {
   if (video.paused) {
     video.play();
@@ -29,5 +32,19 @@ const handleMute = (event) => {
   volumeRange.value = video.muted ? 0 : userVolume;
 };
 
+const handleVolumeChange = (event) => {
+  const {
+    target: { value },
+  } = event;
+
+  if (video.muted) {
+    video.muted = false;
+    muteBtn.innerText = 'Mute';
+  }
+  userVolume = value;
+  video.volume = value;
+};
+
 playBtn.addEventListener('click', handlePlay);
 muteBtn.addEventListener('click', handleMute);
+volumeRange.addEventListener('input', handleVolumeChange);
