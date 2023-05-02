@@ -6,5 +6,14 @@ block content
         h2 My Profile 
     else 
         h2 #{user.name}'s Profile
-    each video in user.videos
-        +video(video)
+    div.profile__data
+        if loggedInUser.socialOnly
+            img(src=user.avatarUrl).avatar
+        else
+            img(src="/" + user.avatarUrl).avatar
+        h3=user.name
+    div.video-grid
+        each video in user.videos
+            +video(video)
+        else
+            span.empty__message No videos found
