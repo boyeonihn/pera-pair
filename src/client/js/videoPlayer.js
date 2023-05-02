@@ -90,9 +90,22 @@ const handleTimelineChange = (event) => {
 
   video.currentTime = value;
 };
+
+const handleFullscreen = () => {
+  const fullscreen = document.fullscreenElement;
+  if (fullscreen) {
+    fullscreenBtn.innerText = 'Enter Fullscreen';
+    document.exitFullscreen();
+  } else {
+    videoContainer.requestFullscreen();
+    fullscreenBtn.innerText = 'Exit Fullscreen';
+  }
+};
+
 playBtn.addEventListener('click', handlePlay);
 muteBtn.addEventListener('click', handleMute);
 volumeRange.addEventListener('input', handleVolumeChange);
 video.addEventListener('loadedmetadata', handleLoadedMetadata);
 video.addEventListener('timeupdate', handleTimeUpdate);
 timeline.addEventListener('input', handleTimelineChange);
+fullscreenBtn.addEventListener('click', handleFullscreen);
