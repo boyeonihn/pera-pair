@@ -137,6 +137,12 @@ const handleKeyboardControls = (event) => {
   }
 };
 
+const handleViewCount = () => {
+  const videoId = document.getElementById('videoContainer').dataset.id;
+  fetch(`/api/videos/${videoId}/view`, {
+    method: 'POST',
+  });
+};
 playBtn.addEventListener('click', handlePlay);
 muteBtn.addEventListener('click', handleMute);
 volumeRange.addEventListener('input', handleVolumeChange);
@@ -147,3 +153,4 @@ fullscreenBtn.addEventListener('click', handleFullscreen);
 videoContainer.addEventListener('mousemove', handleMouseMove);
 document.addEventListener('keydown', handleKeyboardControls);
 video.addEventListener('click', handlePlay);
+video.addEventListener('ended', handleViewCount);
