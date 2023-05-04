@@ -125,6 +125,18 @@ const handleMouseMove = () => {
     3000
   );
 };
+
+const handleKeyboardControls = (event) => {
+  const { code } = event;
+  if (code === 'Space') {
+    handlePlay();
+  } else if (code === 'KeyM') {
+    handleMute();
+  } else if (code === 'KeyF') {
+    handleFullscreen();
+  }
+};
+
 playBtn.addEventListener('click', handlePlay);
 muteBtn.addEventListener('click', handleMute);
 volumeRange.addEventListener('input', handleVolumeChange);
@@ -134,3 +146,4 @@ timeline.addEventListener('input', handleTimelineChange);
 fullscreenBtn.addEventListener('click', handleFullscreen);
 videoContainer.addEventListener('mousemove', handleMouseMove);
 document.addEventListener('keydown', handleKeyboardControls);
+video.addEventListener('click', handlePlay);
