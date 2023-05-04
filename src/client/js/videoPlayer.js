@@ -1,11 +1,14 @@
 const video = document.querySelector('video');
 const playBtn = document.getElementById('play');
+const playBtnIcon = document.querySelector('#play > i');
 const muteBtn = document.getElementById('mute');
+const muteBtnIcon = document.querySelector('#mute > i');
 const currentTime = document.getElementById('currentTime');
 const totalTime = document.getElementById('totalTime');
 const volumeRange = document.getElementById('volume');
 const timeline = document.getElementById('timeline');
 const fullscreenBtn = document.getElementById('fullscreen');
+const fullscreenBtnIcon = document.querySelector('#fullscreen > i');
 const videoContainer = document.getElementById('videoContainer');
 const videoControls = document.getElementById('videoControls');
 
@@ -16,21 +19,26 @@ let controlsTimeout = null;
 const handlePlay = (e) => {
   if (video.paused) {
     video.play();
+    playBtnIcon.classList.remove('fa-play');
+    playBtnIcon.classList.add('fa-pause');
   } else {
     video.pause();
+    playBtnIcon.classList.remove('fa-pause');
+    playBtnIcon.classList.add('fa-play');
   }
-
-  play.innerText = video.paused ? 'Pause' : 'Play';
 };
 
 const handleMute = (event) => {
   if (!video.muted) {
     video.muted = true;
+    muteBtnIcon.classList.remove('fa-volume-high');
+    muteBtnIcon.classList.add('fa-volume-xmark');
   } else {
     video.muted = false;
+    muteBtnIcon.classList.add('fa-volume-high');
+    muteBtnIcon.classList.remove('fa-volume-xmark');
   }
 
-  muteBtn.innerText = video.muted ? 'Unmute' : 'Mute';
   volumeRange.value = video.muted ? 0 : userVolume;
 };
 
@@ -96,11 +104,13 @@ const handleTimelineChange = (event) => {
 const handleFullscreen = () => {
   const fullscreen = document.fullscreenElement;
   if (fullscreen) {
-    fullscreenBtn.innerText = 'Enter Fullscreen';
     document.exitFullscreen();
+    fullscreenBtnIcon.classList.add('fa-expand');
+    fullscreenBtnIcon.classList.remove('fa-compress');
   } else {
     videoContainer.requestFullscreen();
-    fullscreenBtn.innerText = 'Exit Fullscreen';
+    fullscreenBtnIcon.classList.remove('fa-expand');
+    fullscreenBtnIcon.classList.add('fa-compress');
   }
 };
 
