@@ -69,6 +69,14 @@ const handleDownload = async () => {
   document.body.appendChild(thumbLink);
   thumbLink.click();
 
+  // deleting files - after they are downloaded
+  ffmpeg.FS('unlink', 'recording.webm');
+  ffmpeg.FS('unlink', 'output.mp4');
+  ffmpeg.FS('unlink', 'thumbnail.jpg');
+
+  URL.revokeObjectURL(thumbUrl);
+  URL.revokeObjectURL(mp4Url);
+  URL.revokeObjectURL(videoFile);
 };
 const handleRecording = () => {
   if (recordBtn.innerText === startText) {
