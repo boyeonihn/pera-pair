@@ -37,15 +37,38 @@ const handleDownload = async () => {
 
   await ffmpeg.run('-i', 'recording.webm', '-r', '60', 'output.mp4'); // usually run this on console/terminal but because we loaded on browser,
   // we can use same commands
+
+  await ffmpeg.run(
+    '-i',
+    'recording.webm',
+    '-ss',
+    '00:00:01',
+    '-frames:v',
+    '1',
+    'thumbnail.jpg'
+  );
+
   const mp4File = ffmpeg.FS('readFile', 'output.mp4');
+  const thumbFile = ffmpeg.FS('readFile', 'thumbnail.jpg');
 
   const mp4Blob = new Blob([mp4File.buffer], { type: 'video/mp4' });
+  const thumbBlob = new Blob([thumbFile.buffer], { type: 'image/jpg' });
+
   const mp4Url = URL.createObjectURL(mp4Blob);
+  const thumbUrl = URL.createObjectURL(thumbBlob);
+
   const videoLink = document.createElement('a');
   videoLink.href = mp4Url; // binary data
   videoLink.download = 'MyRecording.mp4';
   document.body.appendChild(videoLink);
   videoLink.click();
+
+  const thumbLink = document.createElement('a');
+  thumbLink.href = thumbUrl;
+  thumbLink.download = 'MyThumbnail.jpg';
+  document.body.appendChild(thumbLink);
+  thumbLink.click();
+
 };
 const handleRecording = () => {
   if (recordBtn.innerText === startText) {
