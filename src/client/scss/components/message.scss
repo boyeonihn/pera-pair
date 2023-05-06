@@ -1,0 +1,32 @@
+@keyframes fadeOut {
+  0% {
+    display: block;
+    opacity: 1;
+  }
+  1% {
+    display: block;
+    opacity: 1;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+  }
+}
+
+.message {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 200px;
+  padding: 10px 20px;
+  border-radius: 100px;
+  text-align: center;
+  animation: fadeOut 0.5s ease-in-out forwards;
+  animation-delay: 5s;
+  &.error {
+    background-color: tomato;
+    color: white;
+  }
+}
