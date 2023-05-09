@@ -134,3 +134,41 @@ export const registerView = async (req, res) => {
   await video.save();
   return res.sendStatus(200);
 };
+
+export const createComment = async (req, res) => {
+  const {
+    body: { text },
+    session: {
+      user: { _id },
+    },
+    params: { id },
+  } = req;
+
+  try {
+    const video = await Video.findById(id);
+    const user = await User.findById(_id);
+
+    if (!video) {
+      return res.sendStatus(404);
+    }
+
+    const newComment = await Comment.create({
+      text,
+      owner: _id,
+      video: id,
+    });
+
+    video.comments.push(newComment._id);
+    video.save();
+    user.comments.push(newComment._id);
+    user.save();
+
+    return res.sendStatus(201);
+  } catch (error) {
+    const errorMsg = error._message;
+    return res.status(400).render('watch', {
+      pageTitle: `Watch`,
+      error: errorMsg,
+    });
+  }
+};
