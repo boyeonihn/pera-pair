@@ -1,0 +1,6 @@
+mixin comment(comment)
+    li.video__comment
+        p=comment.text 
+        span
+            a(href=`/users/${comment.owner._id}`)=comment.owner.name
+        span=comment.createdAt
