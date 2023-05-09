@@ -2,15 +2,17 @@ extends ../base
 include ../mixins/video
 
 block content 
-    if loggedInUser._email === user._email
+    if loggedIn && loggedInUser._email === user._email
         h2 My Profile 
     else 
         h2 #{user.name}'s Profile
     div.profile__data
-        if loggedInUser.socialOnly
+        if user.socialOnly
             img(src=user.avatarUrl).avatar
-        else
+        else if (user.avatarUrl)
             img(src="/" + user.avatarUrl).avatar
+        else
+            div.avatar-default
         h3=user.name
     div.video-grid
         each video in user.videos
