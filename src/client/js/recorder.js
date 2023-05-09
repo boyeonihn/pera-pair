@@ -101,6 +101,9 @@ const handleRecording = () => {
     stopRecording();
   } else if (recordBtn.innerText === recordStatus.downloadText) {
     handleDownload();
+  } else if (recordBtn.innerText === recordStatus.recordAgain) {
+    init();
+    startRecording();
   }
 };
 
