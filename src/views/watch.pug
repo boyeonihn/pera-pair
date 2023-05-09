@@ -1,4 +1,5 @@
 extends base
+include mixins/comment
 
 block content
     section#videoContainer(data-id=video._id)
@@ -33,5 +34,15 @@ block content
             br
             a(href=`${video.id}/delete`) Delete Video &rarr;
 
+    section.video__add-comments 
+        form.video__comment-form#commentForm(data-login=`${Boolean(loggedIn)}`)
+            textarea(cols="30", rows='10', placeholder='Write a nice comment...')
+            button Add Comment
+    section.video__comments 
+        ul
+            each comment in video.comments.reverse()
+                +comment(comment)
+        
 block scripts
     script(src="/static/js/videoPlayer.js")
+    script(src="/static/js/commentSection.js")
