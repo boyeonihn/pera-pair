@@ -77,7 +77,7 @@ export const getUpload = (req, res) =>
 
 export const postUpload = async (req, res) => {
   const {
-    file: { path: fileUrl },
+    files: { video, thumb },
     session: {
       user: { _id },
     },
@@ -89,7 +89,8 @@ export const postUpload = async (req, res) => {
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),
-      fileUrl,
+      fileUrl: video[0].path,
+      thumbUrl: Video.changePathFormula(thumb[0].path),
       owner: _id,
     });
     const user = await User.findById(_id);

@@ -29,4 +29,8 @@ videoSchema.static('formatHashtags', function (hashtags) {
     .split(',')
     .map((word) => (word.startsWith('#') ? word : `#${word.trim()}`));
 });
+
+videoSchema.static('changePathFormula', (urlPath) => {
+  return urlPath.replace(/\\/g, '/');
+});
 export const Video = mongoose.model('Video', videoSchema);
