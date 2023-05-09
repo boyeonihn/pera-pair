@@ -21,18 +21,19 @@ block content
                 button#fullscreen
                     i.fa-solid.fa-expand
         
-    
-    //-
-        div
-            p=video.description
-            small=video.createdAt
-        div 
-            small Video uploaded by 
-            a(href=`/users/${video.owner._id}`) #{video.owner.name}
-        if String(video.owner) === String(loggedInUser._id)
-            a(href=`${video.id}/edit`) Edit Video &rarr;
-            br
-            a(href=`${video.id}/delete`) Delete Video &rarr;
+    section.video__data
+        p.video__title=video.title 
+        div.video__owner-container
+            div.avatar-default 
+            small.video__owner
+                a(href=`/users/${video.owner._id}`) #{video.owner.name}
+        p=video.description
+        small.video__createdAt=video.createdAt
+        if (loggedIn)
+            if String(video.owner) === String(loggedInUser._id)
+                a(href=`${video.id}/edit`) Edit Video &rarr;
+                br
+                a(href=`${video.id}/delete`) Delete Video &rarr;
 
     section.video__add-comments 
         form.video__comment-form#commentForm(data-login=`${Boolean(loggedIn)}`)
