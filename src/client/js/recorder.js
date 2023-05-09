@@ -48,6 +48,8 @@ const stopRecording = () => {
 
 const handleDownload = async () => {
   recordBtn.innerText = recordStatus.transcodeText;
+  recordBtn.disabled = true;
+
   const ffmpeg = createFFmpeg({ log: true });
   await ffmpeg.load(); // ffmpeg - user is going to run software that has non-JS code
   // (it's heavy - need to wait) - user computer is the one who handles the burden
@@ -88,6 +90,8 @@ const handleDownload = async () => {
   URL.revokeObjectURL(thumbUrl);
   URL.revokeObjectURL(mp4Url);
   URL.revokeObjectURL(videoFile);
+
+  recordBtn.disabled = false;
   recordBtn.innerText = recordStatus.recordAgain;
 };
 const handleRecording = () => {
