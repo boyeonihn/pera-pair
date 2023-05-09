@@ -1,5 +1,7 @@
 import { Video } from '../models/Video';
 import { User } from '../models/User';
+import { Comment } from '../models/Comment';
+
 export const home = async (req, res) => {
   const videos = await Video.find({})
     .sort({ createdAt: 'desc' })
@@ -9,11 +11,18 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id).populate('owner');
+  const video = await Video.findById(id)
+    .populate('owner')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'owner',
+        model: 'User',
+      },
+    });
   if (video) {
     return res.render('watch', { pageTitle: video.title, video });
   }
-
   return res.render('404', { pageTitle: 'Video Not Found' });
 };
 export const getEdit = async (req, res) => {
