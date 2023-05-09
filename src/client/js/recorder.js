@@ -110,8 +110,8 @@ const handleRecording = () => {
 const init = async () => {
   try {
     stream = await navigator.mediaDevices.getUserMedia({
-      audio: false,
-      video: { width: 600, height: 400 },
+      audio: true,
+      video: { width: 1024, height: 576 },
     });
     video.srcObject = stream;
     video.play();
