@@ -33,4 +33,12 @@ input[type='submit'],
   text-align: center;
   cursor: pointer;
   display: block;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
