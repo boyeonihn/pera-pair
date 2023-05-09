@@ -3,7 +3,6 @@
   font-size: 18px;
 }
 .video-grid {
-  padding: 0 50px;
   display: grid;
   gap: 50px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -16,8 +15,14 @@
   }
 }
 
-.avatar {
+.avatar,
+.avatar-default {
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.avatar-default {
+  background-color: tomato;
 }
