@@ -9,6 +9,14 @@ let stream;
 let recorder;
 let videoFile;
 
+const downloadFile = (fileUrl, fileName) => {
+  const link = document.createElement('a');
+  link.href = fileUrl;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+};
+
 const startRecording = () => {
   recordBtn.innerText = stopText;
   recorder = new window.MediaRecorder(stream);
@@ -57,17 +65,8 @@ const handleDownload = async () => {
   const mp4Url = URL.createObjectURL(mp4Blob);
   const thumbUrl = URL.createObjectURL(thumbBlob);
 
-  const videoLink = document.createElement('a');
-  videoLink.href = mp4Url; // binary data
-  videoLink.download = 'MyRecording.mp4';
-  document.body.appendChild(videoLink);
-  videoLink.click();
-
-  const thumbLink = document.createElement('a');
-  thumbLink.href = thumbUrl;
-  thumbLink.download = 'MyThumbnail.jpg';
-  document.body.appendChild(thumbLink);
-  thumbLink.click();
+  downloadFile(mp4Url, 'MyRecording.mp4');
+  downloadFile(thumbUrl, 'MyThumbnail.jpg');
 
   // deleting files - after they are downloaded
   ffmpeg.FS('unlink', 'recording.webm');
