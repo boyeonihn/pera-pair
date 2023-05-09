@@ -128,6 +128,9 @@ const handleMouseMove = () => {
 
 const handleKeyboardControls = (event) => {
   const { code } = event;
+  if (event.target.nodeName.toLowerCase() === 'textarea') {
+    return;
+  }
   if (code === 'Space') {
     handlePlay();
   } else if (code === 'KeyM') {
