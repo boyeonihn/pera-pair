@@ -1,19 +1,22 @@
 extends base
 
 block content 
-    h4 Upload Video
-    section#videoPreview
-        video#preview
-        button#recordBtn Start Recording
-    if error 
-        span=error
-    form(method="POST" enctype="multipart/form-data")
-        label(for="video") Video File
-        input(type="file" accept="video/*" name="video" id="video" required)
-        input(name="title", type="text" placeholder="Video Title" required)
-        input(name="description", type="text", required, placeholder="Description")
-        input(placeholder="Hashtags (separated by comma)", type="text", required, name="hashtags")
-        input(value="Upload Video" type="submit")
+    section.upload__container 
+        h4 Upload Video
+        section.upload__video 
+            video#preview
+            button#recordBtn Start Recording
+        if error 
+            span=error
+        form(method="POST" enctype="multipart/form-data")
+            label(for="video") Video File
+            input(type="file" accept="video/*" name="video" id="video" required)
+            label(for="thumb") Thumbnail File
+            input(type="file" accept="image/*" name="thumb" id="thumb" required)
+            input(name="title", type="text" placeholder="Video Title" required)
+            input(name="description", type="text", required, placeholder="Description")
+            input(placeholder="Hashtags (separated by comma)", type="text", required, name="hashtags")
+            input(value="Upload Video" type="submit")
 
 block scripts
     script(src="/static/js/recorder.js")
