@@ -104,7 +104,6 @@ export const postLogin = async (req, res) => {
 
 export const logout = (req, res) => {
   req.session.destroy();
-  req.flash('info', 'Logged Out');
   res.clearCookie('connect.sid', { path: '/' });
   return res.redirect('/');
 };
