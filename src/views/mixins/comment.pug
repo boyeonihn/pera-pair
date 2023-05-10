@@ -1,6 +1,9 @@
 mixin comment(comment)
-    li.video__comment
-        p=comment.text 
+    li.video__comment(data-id=`${comment._id}`)
         span
             a(href=`/users/${comment.owner._id}`)=comment.owner.name
         span=comment.createdAt
+        if (loggedIn  && String(comment.owner._id) === String(loggedInUser._id))
+            span
+                i.fa-solid.fa-delete-left
+        p=comment.text
