@@ -24,7 +24,7 @@ block content
     section.video__data
         p.video__title=video.title 
         div.video__owner-container
-            div.avatar-default 
+            div.avatar-default-mini
             small.video__owner
                 a(href=`/users/${video.owner._id}`) #{video.owner.name}
         p=video.description
@@ -36,7 +36,7 @@ block content
                 a(href=`${video.id}/delete`) Delete Video &rarr;
 
     section.video__add-comments 
-        form.video__comment-form#commentForm(data-login=`${Boolean(loggedIn)}`)
+        form.video__comment-form#commentForm(data-login=`${ loggedIn ? loggedInUser._id : ''}`, data-name=`${ loggedIn ? loggedInUser.name : ''}`)
             textarea(cols="30", rows='10', placeholder='Write a nice comment...')
             button Add Comment
     section.video__comments 
