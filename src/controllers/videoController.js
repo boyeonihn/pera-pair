@@ -181,3 +181,25 @@ export const createComment = async (req, res) => {
     });
   }
 };
+
+export const deleteComment = async (req, res) => {
+  const {
+    body: { id },
+    session: {
+      user: { _id: userId },
+    },
+    params: { id: videoId },
+  } = req;
+
+  const video = await Video.findById(videoId);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  video.comments = video.comments.filter((comment) => comment !== id);
+  video.save();
+
+  await Comment.findByIdAndDelete(id);
+  console.log('SUCCESS');
+  return res.sendStatus(200);
+};
