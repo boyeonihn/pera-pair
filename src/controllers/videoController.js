@@ -172,7 +172,7 @@ export const createComment = async (req, res) => {
     user.comments.push(newComment._id);
     user.save();
 
-    return res.sendStatus(201);
+    return res.status(201).json({ newCommentId: newComment._id });
   } catch (error) {
     const errorMsg = error._message;
     return res.status(400).render('watch', {
