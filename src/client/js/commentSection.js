@@ -40,13 +40,13 @@ const addComment = (commentInfo) => {
   comment.addEventListener('click', deleteComment);
   videoComments.prepend(comment);
 };
+const handleSubmit = async (event) => {
   event.preventDefault();
-  if (form.dataset.login === 'false') {
+  if (form.dataset.login === '') {
     alert('Please Login First');
     return;
   }
   const text = textarea.value;
-  const videoId = videoContainer.dataset.id;
 
   if (text === '') {
     return;
@@ -60,7 +60,7 @@ const addComment = (commentInfo) => {
     body: JSON.stringify({ text }),
   });
   textarea.value = '';
-};
+form.addEventListener('submit', handleSubmit);
 videoComments.forEach((comment) =>
   comment.addEventListener('click', deleteComment)
 );
