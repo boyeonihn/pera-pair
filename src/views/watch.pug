@@ -25,6 +25,7 @@ block content
         p.video__title=video.title 
         div.video__owner-container
             div.avatar-default-mini
+                i.fa-solid.fa-user
             small.video__owner
                 a(href=`/users/${video.owner._id}`) #{video.owner.name}
         p=video.description

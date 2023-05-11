@@ -13,6 +13,7 @@ block content
             img(src="/" + user.avatarUrl).avatar
         else
             div.avatar-default
+                i.fa-solid.fa-user
         h3=user.name
     div.video-grid
         each video in user.videos
