@@ -40,6 +40,7 @@ const addComment = (commentInfo) => {
   comment.addEventListener('click', deleteComment);
   videoComments.prepend(comment);
 };
+
 const handleSubmit = async (event) => {
   event.preventDefault();
   if (form.dataset.login === '') {
@@ -52,14 +53,33 @@ const handleSubmit = async (event) => {
     return;
   }
 
-  fetch(`/api/videos/${videoId}/comment`, {
+  const response = await fetch(`/api/videos/${videoId}/comment`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ text }),
   });
+
   textarea.value = '';
+  const json = await response.json();
+  const commentId = json.newCommentId;
+
+  if (response.status === 201) {
+    const id = form.dataset.login;
+    const name = form.dataset.name;
+    const currentTime = new Date();
+    const commentInfo = {
+      text,
+      createdAt: currentTime.toISOString(),
+      user: id,
+      name,
+      commentId,
+    };
+    addComment(commentInfo);
+  }
+};
+
 form.addEventListener('submit', handleSubmit);
 videoComments.forEach((comment) =>
   comment.addEventListener('click', deleteComment)
