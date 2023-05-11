@@ -2,9 +2,27 @@
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+  .video__owner-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid $blue;
+    div.avatar-default-mini {
+      margin-right: 5px;
+    }
+    .video__button {
+      background-color: $blue;
+      border: none;
+      font-family: inherit;
+      padding: 10px;
+      border-radius: 20px;
+      margin-left: 10px;
+      font-weight: bold;
+      color: $bg;
       &:hover {
         background-color: $bluehover;
       }
+    }
+  }
   .video__title {
     font-size: 26px;
     margin-bottom: 5px;
@@ -13,9 +31,10 @@
     font-size: 12px;
   }
   .video__owner {
-    margin-bottom: 5px;
-    font-size: 14px;
+    font-size: 1rem;
     a {
+      color: $blue;
+      font-weight: bold;
       &:hover {
         color: $bluehover;
       }
@@ -23,6 +42,25 @@
   }
 }
 
+.video__add-comments {
+  #commentForm {
+    margin: 0px;
+    font-size: 1rem;
+    padding: 15px;
+    font-family: inherit;
+    max-width: 1000px;
+    textarea {
+      resize: vertical;
+      min-height: 10px;
+      font-family: inherit;
+      width: 100%;
+    }
+    button {
+      font-family: inherit;
+      display: block;
+    }
+  }
+}
 .video__comments {
   margin-top: 20px;
   display: flex;

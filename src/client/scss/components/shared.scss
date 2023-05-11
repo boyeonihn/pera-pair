@@ -25,7 +25,10 @@
 
 .avatar-default,
 .avatar-default-mini {
-  background-color: tomato;
+  background-color: $blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .avatar-default-mini,
