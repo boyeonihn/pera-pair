@@ -37,6 +37,9 @@ input[type='submit'],
   &:focus {
     outline: none;
   }
+  &:hover {
+    background-color: $bluehover;
+  }
   &:disabled {
     opacity: 0.5;
     pointer-events: none;

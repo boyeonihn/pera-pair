@@ -24,6 +24,9 @@
       text-align: center;
       cursor: pointer;
       display: block;
+      &:hover {
+        background-color: $bluehover;
+      }
     }
   }
 }

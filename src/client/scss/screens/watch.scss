@@ -2,6 +2,9 @@
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+      &:hover {
+        background-color: $bluehover;
+      }
   .video__title {
     font-size: 26px;
     margin-bottom: 5px;
@@ -13,8 +16,9 @@
     margin-bottom: 5px;
     font-size: 14px;
     a {
-      color: cornflowerblue;
-      text-decoration: underline;
+      &:hover {
+        color: $bluehover;
+      }
     }
   }
 }

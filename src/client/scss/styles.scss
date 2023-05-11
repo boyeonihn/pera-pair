@@ -25,7 +25,11 @@
 a {
   color: inherit;
   text-decoration: none;
+  &:hover {
+    color: $blue;
+  }
 }
+
 body {
   font-family: 'Roboto', sans-serif;
   background-color: $bg;
