@@ -2,6 +2,9 @@ const form = document.getElementById('commentForm');
 const textarea = form.querySelector('textarea');
 const submitBtn = form.querySelector('button');
 const videoContainer = document.getElementById('videoContainer');
+const videoComments = document.querySelectorAll('.video__comment');
+const videoId = videoContainer.dataset.id;
+
 
 const addComment = (event) => {
   event.preventDefault();
