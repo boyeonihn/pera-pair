@@ -21,7 +21,7 @@ export const watch = async (req, res) => {
       },
     });
   if (video) {
-    return res.render('watch', { pageTitle: video.title, video });
+    return res.render('videos/watch', { pageTitle: video.title, video });
   }
   return res.render('404', { pageTitle: 'Video Not Found' });
 };
@@ -36,7 +36,7 @@ export const getEdit = async (req, res) => {
     req.flash('error', 'Not authorized');
     return res.status(403).redirect('/');
   }
-  return res.render('edit', { pageTitle: `Edit ${video.title}`, video });
+  return res.render('videos/edit', { pageTitle: `Edit ${video.title}`, video });
 };
 
 export const postEdit = async (req, res) => {
@@ -82,7 +82,7 @@ export const deleteVideo = async (req, res) => {
   return res.redirect(`/`);
 };
 export const getUpload = (req, res) =>
-  res.render('upload', { pageTitle: `Uploading Video` });
+  res.render('videos/upload', { pageTitle: `Uploading Video` });
 
 export const postUpload = async (req, res) => {
   const {

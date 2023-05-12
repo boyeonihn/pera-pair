@@ -13,4 +13,7 @@ block content
             each video in videos
                 +video(video)
         else
-            span.empty__message Sorry, nothing found with that search query.
+            if (!keyword)
+                span Please enter a keyword!
+            else
+                span.empty__message Sorry, nothing found with that search query.

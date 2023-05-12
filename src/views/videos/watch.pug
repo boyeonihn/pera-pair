@@ -1,5 +1,5 @@
-extends base
-include mixins/comment
+extends ../base
+include ../mixins/comment
 
 block content
     section#videoContainer(data-id=video._id)
@@ -28,17 +28,18 @@ block content
                 i.fa-solid.fa-user
             small.video__owner
                 a(href=`/users/${video.owner._id}`) #{video.owner.name}
-        p=video.description
+            if (loggedIn)
+                if String(video.owner._id) === String(loggedInUser._id)
+                    button.video__button
+                        a(href=`${video.id}/edit`) Edit Video
+                    button.video__button
+                        a(href=`${video.id}/delete`) Delete Video
         small.video__createdAt=video.createdAt
-        if (loggedIn)
-            if String(video.owner) === String(loggedInUser._id)
-                a(href=`${video.id}/edit`) Edit Video &rarr;
-                br
-                a(href=`${video.id}/delete`) Delete Video &rarr;
-
+        p=video.description
+        
     section.video__add-comments 
         form.video__comment-form#commentForm(data-login=`${ loggedIn ? loggedInUser._id : ''}`, data-name=`${ loggedIn ? loggedInUser.name : ''}`)
-            textarea(cols="30", rows='10', placeholder='Write a nice comment...')
+            textarea(spellcheck="true" placeholder='Write a nice comment...')
             button Add Comment
     section.video__comments 
         ul
