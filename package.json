@@ -8,8 +8,11 @@
     "url": "https://github.com/boyeonihn/wetube-app-clone.git"
   },
   "scripts": {
-    "dev:server": "nodemon",
-    "dev:assets": "webpack"
+    "start": "node build/init.js",
+    "build:assets": "webpack --mode=production",
+    "build:server": "babel src -d build",
+    "dev:assets": "webpack --mode=development",
+    "dev:server": "nodemon"
   },
   "author": "Boyeon Ihn",
   "license": "MIT",
