@@ -11,7 +11,7 @@
     "start": "node build/init.js",
     "build:assets": "webpack --mode=production",
     "build:server": "babel src -d build",
-    "dev:assets": "webpack --mode=development",
+    "dev:assets": "webpack --mode=development -w",
     "dev:server": "nodemon"
   },
   "author": "Boyeon Ihn",
