@@ -73,7 +73,7 @@ export const deleteVideo = async (req, res) => {
   if (!video) {
     return res.status(404).render('404', { pageTitle: 'Video Not Found' });
   }
-  if (String(video.owner) !== String(_id)) {
+  if (String(video.owner._id) !== String(_id)) {
     req.flash('error', 'Not authorized to delete');
     return res.status(403).redirect('/');
   }
@@ -126,10 +126,13 @@ export const search = async (req, res) => {
         $regex: new RegExp(keyword, 'i'),
       },
     }).populate('owner');
-    return res.render('search', { pageTitle: 'Search Results', videos });
+    return res.render('search', {
+      pageTitle: 'Search Results',
+      videos,
+    });
   }
 
-  return res.render('search', { pageTitle: 'Search' });
+  return res.render('search', { pageTitle: 'Search', keyword: false });
 };
 
 export const registerView = async (req, res) => {
