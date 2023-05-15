@@ -1,4 +1,5 @@
 import express from 'express';
+import { about } from '../controllers/generalController';
 import {
   getJoin,
   postJoin,
@@ -19,4 +20,5 @@ rootRouter
   .get(getLogin)
   .post(postLogin);
 rootRouter.get('/search', search);
+rootRouter.get('/about', about);
 rootRouter.get('/logout', protectUrlMiddleware, logout);

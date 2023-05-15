@@ -26,6 +26,7 @@ export const postJoin = async (req, res) => {
       location,
       name,
     });
+    req.flash('info', 'Account created!');
     return res.redirect('/login');
   } catch (error) {
     const errorMsg = error._message;
@@ -62,6 +63,7 @@ export const postEdit = async (req, res) => {
     { new: true }
   );
   req.session.user = updatedUser;
+  req.flash('info', 'Profile Change Saved');
   res.redirect('/users/edit');
 };
 
@@ -96,6 +98,7 @@ export const postLogin = async (req, res) => {
   }
   req.session.loggedIn = true;
   req.session.user = user;
+  req.flash('info', 'Logged In');
   return res.redirect('/');
 };
 
@@ -174,6 +177,7 @@ export const finishGithubLogin = async (req, res) => {
       (email) => email.primary === true && email.verified === true
     );
     if (!emailObject) {
+      req.flash('error', 'No verified Github Email');
       return res.redirect('/login');
     }
 
@@ -190,13 +194,23 @@ export const finishGithubLogin = async (req, res) => {
     }
     req.session.loggedIn = true;
     req.session.user = user;
+
+    req.flash('info', 'Github Token Account Created');
     return res.redirect('/');
   } else {
+    req.flash('error', 'Github Login Unsuccessful');
     return res.redirect('/login');
   }
 };
 
 export const getChangePw = (req, res) => {
+  if (req.session.user.socialOnly) {
+    req.flash(
+      'error',
+      `Can't change password - you're using a social account to login`
+    );
+    return res.redirect('/');
+  }
   res.render('users/change-password', { pageTitle: 'Change Password' });
 };
 export const postChangePw = async (req, res) => {
@@ -223,12 +237,19 @@ export const postChangePw = async (req, res) => {
   }
   user.password = newPw;
   await user.save();
+  req.flash('info', 'Password updated');
   return res.redirect('/logout');
 };
 
 export const getProfile = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id).populate('videos');
+  const user = await User.findById(id).populate({
+    path: 'videos',
+    populate: {
+      path: 'owner',
+      model: 'User',
+    },
+  });
   const videos = await Video.find({ owner: user._id });
 
   if (!user) {

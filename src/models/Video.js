@@ -6,12 +6,16 @@ const videoSchema = new mongoose.Schema({
   createdAt: { type: Date, required: true, default: Date.now },
   hashtags: [{ type: String }],
   fileUrl: { type: String, required: true },
+  thumbUrl: { type: String, required: true },
   meta: {
     comments: { type: Number, default: 0, required: true },
     views: { type: Number, default: 0, required: true },
     rating: { type: Number, default: 0, required: true },
   },
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
+  comments: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Comment' },
+  ],
 });
 
 //middleware must go before the model is made
@@ -27,5 +31,9 @@ videoSchema.static('formatHashtags', function (hashtags) {
   return hashtags
     .split(',')
     .map((word) => (word.startsWith('#') ? word : `#${word.trim()}`));
+});
+
+videoSchema.static('changePathFormula', (urlPath) => {
+  return urlPath.replace(/\\/g, '/');
 });
 export const Video = mongoose.model('Video', videoSchema);

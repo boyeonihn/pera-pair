@@ -2,9 +2,21 @@ extends ../base
 include ../mixins/video
 
 block content 
-    if loggedInUser._email === user._email
+    if loggedIn && loggedInUser._email === user._email
         h2 My Profile 
     else 
         h2 #{user.name}'s Profile
-    each video in user.videos
-        +video(video)
+    div.profile__data
+        if user.socialOnly
+            img(src=user.avatarUrl).avatar
+        else if (user.avatarUrl)
+            img(src="/" + user.avatarUrl).avatar
+        else
+            div.avatar-default
+                i.fa-solid.fa-user
+        h3=user.name
+    div.video-grid
+        each video in user.videos
+            +video(video)
+        else
+            span.empty__message No videos found
