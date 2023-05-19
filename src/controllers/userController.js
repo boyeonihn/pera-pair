@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 
 export const getJoin = (req, res) =>
   res.render('users/join', { pageTitle: 'Join' });
+
 export const postJoin = async (req, res) => {
   const { email, name, password, location, passwordConfirm } = req.body;
   const emailExists = await User.exists({ email });
@@ -59,7 +60,7 @@ export const postEdit = async (req, res) => {
   }
   const updatedUser = await User.findByIdAndUpdate(
     _id,
-    { email, name, location, avatarUrl: file ? file.path : avatarUrl },
+    { email, name, location, avatarUrl: file ? file.location : avatarUrl },
     { new: true }
   );
   req.session.user = updatedUser;
