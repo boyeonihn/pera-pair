@@ -22,9 +22,6 @@ header
                             span
                                 i.fa.fa-user
                         else
-                            if loggedInUser.socialOnly
-                                img.header__avatar(src=loggedInUser.avatarUrl, crossorigin)
-                            else 
-                                img.header__avatar(src='/' + loggedInUser.avatarUrl, crossorigin)
+                            img.header__avatar(src=`${loggedInUser.avatarUrl}`, crossorigin)
                 li
                     a(href="/logout") Logout
