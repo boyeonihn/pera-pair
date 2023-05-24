@@ -4,11 +4,18 @@ block content
     if errorMessage 
         h3=errorMessage
     form(method="POST")
-        input(type="email" required name="email" placeholder="Email")
-        input(type="text" required, name="name" placeholder="Name")
-        input(type="password" required placeholder="Password", name="password")
-        input(type="password" required placeholder="Confirm Password" name="passwordConfirm")
-        input(type="text" name="location" placeholder="Location")
+        label(for="email") Email
+        input(type="email" required name="email" placeholder="Email" id="email")
+        label(for="name") Name
+        input(type="text" required, name="name" placeholder="Name" id="name")
+        label(for="pet") Pet's Name
+        input(type="text" required, name="pet", placeholder="Pet's Name" id="pet")
+        label(for="password") Password
+        input(type="password" required placeholder="Password", name="password" id="password")
+        label(for="passwordConfirm") Confirm Password
+        input(type="password" required placeholder="Confirm Password" name="passwordConfirm" id="passwordConfirm")
+        label(for="location") Location
+        input(type="text" name="location" placeholder="Location" id="location")
         input(type="submit" value="Join")
         include ../partials/social-login
         div.auth-switch 
