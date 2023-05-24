@@ -27,12 +27,15 @@ export const watch = async (req, res) => {
 };
 export const getEdit = async (req, res) => {
   const { id } = req.params;
-  const { user: _id } = req.session;
+  const {
+    user: { _id },
+  } = req.session;
   const video = await Video.findById(id);
   if (!video) {
     return res.render('404', { pageTitle: 'Video Not Found' });
   }
-  if (String(video.owner) !== String(_id)) {
+
+  if (String(video.owner._id) !== String(_id)) {
     req.flash('error', 'Not authorized');
     return res.status(403).redirect('/');
   }
@@ -45,27 +48,32 @@ export const postEdit = async (req, res) => {
     user: { _id },
   } = req.session;
   const { title, description, hashtags } = req.body;
-  const video = await Video.exists({ _id: id });
+  const video = await Video.findById(id);
   if (!video) {
     return res.status(404).render('404', { pageTitle: 'Video Not Found' });
   }
 
-  if (String(video.owner) !== String(_id)) {
+  if (String(video.owner._id) !== String(_id)) {
     req.flash('error', 'Not authorized to edit');
     return res.status(403).redirect('/');
   }
-  await Video.findByIdAndUpdate(id, {
-    title,
-    description,
-    hashtags: Video.formatHashtags(hashtags),
-  });
-  req.flash('info', 'Video updated');
-  return res.redirect(`/videos/${id}`);
+
+  try {
+    await Video.findByIdAndUpdate(id, {
+      title,
+      description,
+      hashtags: Video.formatHashtags(hashtags),
+    });
+    req.flash('info', 'Video updated');
+    return res.redirect(`/videos/${id}`);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const deleteVideo = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.exists({ _id: id });
+  const video = await Video.findById(id);
   const {
     user: { _id },
   } = req.session;
@@ -81,6 +89,7 @@ export const deleteVideo = async (req, res) => {
   req.flash('info', 'Video deletion successful');
   return res.redirect(`/`);
 };
+
 export const getUpload = (req, res) =>
   res.render('videos/upload', { pageTitle: `Uploading Video` });
 
