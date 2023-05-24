@@ -2,8 +2,19 @@ extends base
 include mixins/video
 
 block content
-    div.video-grid 
-        each videoUnit in videos
-            +video(videoUnit)
-        else 
-            span.empty_message No videos found. 
+    section#section-video
+        h2.home__heading Recent videos
+        div.video-grid 
+            each videoUnit in videos
+                +video(videoUnit)
+            else 
+                span.empty_message No videos found. 
+        
+    section#section-post
+        h2.home__heading Recent posts
+        div.video-grid 
+            if posts
+                each post in posts
+                    +post(post)
+            else 
+                span.empty_message No posts found. 
