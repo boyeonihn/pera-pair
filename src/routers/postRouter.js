@@ -17,4 +17,8 @@ postRouter
   .post(postCreate);
 
 postRouter.get('/:id([0-9a-f]{24})', getPost);
-postRouter.route('/:id([0-9a-f]{24})/edit').get(getEdit).post(postEdit);
+postRouter
+  .route('/:id([0-9a-f]{24})/edit')
+  .all(protectUrlMiddleware)
+  .get(getEdit)
+  .post(postEdit);
