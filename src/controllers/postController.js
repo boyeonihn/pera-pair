@@ -14,3 +14,24 @@ export const getCreate = (req, res) => {
   return res.render('posts/create', { pageTitle: 'Create a post' });
 };
 
+export const postCreate = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { title, topic, text },
+    file,
+  } = req;
+
+  const post = await Post.create({
+    title,
+    topic,
+    text,
+    owner: _id,
+    fileUrl: file.location,
+  });
+
+  const user = await User.findById(_id);
+  user.posts.push(post._id);
+  return res.redirect('/');
+};
