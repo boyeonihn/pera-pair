@@ -1,0 +1,7 @@
+mixin post(post)
+    a(href=`/posts/${post.id}`)
+        div.video-mixin__data
+            span.video-mixin__title=post.title
+            div.video-mixin__meta
+                span #{post.owner.name} • 
+                span #{post.meta.views} views
