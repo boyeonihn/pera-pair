@@ -1,7 +1,7 @@
 {
-  "name": "peraXpair",
+  "name": "petAmi",
   "version": "1.0.0",
-  "description": "The best way to watch videos",
+  "description": "A social media site for pet parents!",
   "main": "index.js",
   "repository": {
     "type": "git",
