@@ -35,12 +35,12 @@ block content
                     button.video__button
                         a(href=`${video.id}/delete`) Delete Video
         small.video__createdAt=video.createdAt
-        p=video.description
+        p.video__description=video.description
         
     section.video__add-comments 
-        form.video__comment-form#commentForm(data-login=`${ loggedIn ? loggedInUser._id : ''}`, data-name=`${ loggedIn ? loggedInUser.name : ''}`)
+        form.video__comment-form#videoCommentForm(data-login=`${ loggedIn ? loggedInUser._id : ''}`, data-name=`${ loggedIn ? loggedInUser.name : ''}`)
             textarea(spellcheck="true" placeholder='Write a nice comment...')
-            button Add Comment
+            button.add__comment Add Comment
     section.video__comments 
         ul
             each comment in video.comments.reverse()
@@ -48,4 +48,4 @@ block content
         
 block scripts
     script(src="/static/js/videoPlayer.js")
-    script(src="/static/js/commentSection.js")
+    script(src="/static/js/videoCommentSection.js")
