@@ -2,7 +2,7 @@ extends ../base
 
 block content 
     h1=pageTitle
-    form(method="POST")
+    form(method="POST" enctype="multipart/form-data")
         label(for="title") Post Title
         input(type="text", required, id="title", name="title", placeholder="Title")
         label(for="topic") Post Topic
