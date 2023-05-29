@@ -6,8 +6,10 @@ const userSchema = new mongoose.Schema({
   avatarUrl: { type: String, default: '' },
   password: String,
   name: { type: String, required: true },
+  pet: { type: String, required: true },
   socialOnly: { type: Boolean, default: false },
   location: String,
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }],
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 });
