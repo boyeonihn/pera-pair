@@ -65,3 +65,11 @@ export const uploadVideo = multer({
   },
   storage: multerUploader,
 });
+
+export const uploadPost = multer({
+  dest: 'uploads/posts/',
+  limits: {
+    filSize: 10000000,
+  },
+  storage: multerUploader,
+});

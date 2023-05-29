@@ -14,7 +14,7 @@ postRouter
   .route('/create')
   .all(protectUrlMiddleware)
   .get(getCreate)
-  .post(postCreate);
+  .post(uploadPost.single('picture'), postCreate);
 
 postRouter.get('/:id([0-9a-f]{24})', getPost);
 postRouter
