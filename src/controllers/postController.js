@@ -35,3 +35,14 @@ export const postCreate = async (req, res) => {
   user.posts.push(post._id);
   return res.redirect('/');
 };
+
+export const getEdit = async (req, res) => {
+  const { id } = req.params;
+  const post = await Post.findById(id);
+
+  if (!post) {
+    return res.sendStatus(404);
+  }
+  return res.render('posts/edit', { pageTitle: 'Edit Post', post });
+};
+
