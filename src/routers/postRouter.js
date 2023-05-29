@@ -1,5 +1,5 @@
 import express from 'express';
-import { protectUrlMiddleware } from '../middlewares.js';
+import { protectUrlMiddleware, uploadPost } from '../middlewares.js';
 import {
   getCreate,
   postCreate,
