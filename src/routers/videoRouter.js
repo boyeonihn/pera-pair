@@ -21,11 +21,8 @@ videoRouter
       { name: 'thumb', maxCount: 1 },
     ]),
     postUpload
-  ); // need to put this on the top because express might consider "upload" as a valid :id parameter
+  );
 videoRouter.get('/:id([0-9a-f]{24})', watch);
-// videoRouter.get('/:id/edit', getEdit);
-// videoRouter.post('/:id/edit', postEdit);
-// You can do both post/get request in one line of code
 
 videoRouter
   .route('/:id([0-9a-f]{24})/edit')
