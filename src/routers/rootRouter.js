@@ -7,7 +7,8 @@ import {
   postLogin,
   logout,
 } from '../controllers/userController';
-import { home, search } from '../controllers/videoController';
+import { search } from '../controllers/videoController';
+import { home } from '../controllers/generalController';
 import { protectUrlMiddleware, publicOnlyMiddleware } from '../middlewares';
 
 export const rootRouter = express.Router();
