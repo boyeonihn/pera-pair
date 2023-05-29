@@ -20,6 +20,7 @@
 @import './screens/home.scss';
 @import './screens/upload.scss';
 @import './screens/watch.scss';
+@import './screens/read.scss';
 
 // Defaults
 a {
@@ -33,7 +34,7 @@ a {
 body {
   font-family: 'Roboto', sans-serif;
   background-color: $bg;
-  color: white;
+  color: $lightblue;
 }
 
 main {
@@ -42,4 +43,5 @@ main {
   margin: 0 auto;
   margin-top: 50px;
   padding: 0 50px;
+  padding-right: 50px;
 }

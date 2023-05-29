@@ -1,8 +1,6 @@
 form {
   max-width: 420px;
-  margin: 0 auto;
   &:not(.search__form) {
-    padding: 30px;
     background-color: rgba($color: $bg, $alpha: 0.7);
     border-radius: 10px;
     border: 1px solid rgba($color: #fff, $alpha: 0.1);
@@ -14,14 +12,21 @@ input:not([type='range']) {
   padding: 15px 20px;
   border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: black;
+  background-color: $lightblue;
   margin-bottom: 5px;
   font-size: 16px;
-  color: white;
+  color: $beige;
   width: 90%;
   &::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+    color: $bg;
   }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px $blue inset !important;
 }
 
 input[type='submit'],
@@ -44,4 +49,26 @@ input[type='submit'],
     opacity: 0.5;
     pointer-events: none;
   }
+}
+
+select {
+  font-size: inherit;
+  background-color: $blue;
+  font-family: inherit;
+  color: $bg;
+  width: 420px;
+  border-radius: 5px;
+  padding: 15px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 300px;
+  font-family: inherit;
+  width: 100%;
+  font-size: inherit;
+  background-color: $beige;
+  border-radius: 5px;
+  padding: 15px 20px;
 }

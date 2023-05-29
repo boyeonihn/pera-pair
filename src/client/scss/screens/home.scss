@@ -1,2 +1,14 @@
-.video__grid {
+.home__heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-bottom: 30px;
+}
+
+main {
+  border: 1px solid orange;
+}
+#section-video,
+#section-post {
+  min-height: 300px;
+  border: 1px solid pink;
 }
