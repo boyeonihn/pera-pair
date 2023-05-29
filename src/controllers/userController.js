@@ -6,7 +6,7 @@ export const getJoin = (req, res) =>
   res.render('users/join', { pageTitle: 'Join' });
 
 export const postJoin = async (req, res) => {
-  const { email, name, password, location, passwordConfirm } = req.body;
+  const { email, name, password, location, passwordConfirm, pet } = req.body;
   const emailExists = await User.exists({ email });
   const pageTitle = 'Join';
   if (emailExists) {
@@ -15,7 +15,7 @@ export const postJoin = async (req, res) => {
       errorMessage: 'This email is already taken.',
     });
   } else if (password !== passwordConfirm) {
-    return res.status(400).render('join', {
+    return res.status(400).render('users/join', {
       pageTitle,
       errorMessage: 'Passwords do not match. Please retype your password.',
     });
@@ -26,12 +26,13 @@ export const postJoin = async (req, res) => {
       password,
       location,
       name,
+      pet,
     });
     req.flash('info', 'Account created!');
     return res.redirect('/login');
   } catch (error) {
     const errorMsg = error._message;
-    return res.status(400).render('join', {
+    return res.status(400).render('users/join', {
       pageTitle,
       errorMessage: errorMsg,
     });
