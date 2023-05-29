@@ -1,0 +1,8 @@
+extends ../base
+
+block content 
+    h4 Update Post
+    form(method="POST")
+        input(name="title", placeholder="Post Title" value=post.title, required)
+        input(name="text", type="text", required, placeholder="Description" value=post.text)   
+        input(value="Save" type="submit")

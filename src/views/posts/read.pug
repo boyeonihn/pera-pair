@@ -1,0 +1,35 @@
+extends ../base
+include ../mixins/comment
+
+block content
+    section.post__data
+        h1.post__title=post.title
+        div.post__owner-container
+            if post.owner.avatarUrl
+                div.avatar-mini
+            else 
+                div.avatar-default-mini
+                    i.fa-solid.fa-user
+            small
+                a(href=`/users/${post.owner._id}`) #{post.owner.name}
+            if (loggedIn)
+                if String(post.owner._id) === String(loggedInUser._id)
+                    button.post__button
+                        a(href=`${post.id}/edit`) Edit Post
+                    button.post__button
+                        a(href=`${post.id}/delete`) Delete Post
+        small.post__createdAt=post.createdAt
+        p.post__description=post.text
+    section.comment__container
+        h2 Comments
+        form.post__comment-form#postCommentForm(data-login=`${ loggedIn ? loggedInUser._id : ''}`, data-name=`${ loggedIn ? loggedInUser.name : ''}`)
+            textarea(spellcheck="true" placeholder='Write a nice comment...')
+            button.add__comment Add Comment
+    section.post__comments 
+        ul
+            if comments
+                each comment in post.comments.reverse()
+                    +comment(comment)
+
+block scripts
+    script(src="/static/js/postCommentSection.js")
