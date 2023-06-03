@@ -2,8 +2,9 @@ extends ../base
 include ../mixins/comment
 
 block content
-    section.post__data
+    section.post__data#postContainer(data-id=post._id)
         h1.post__title=post.title
+        h2.post__topic Topic: #{post.topic}
         div.post__owner-container
             if post.owner.avatarUrl
                 div.avatar-mini
