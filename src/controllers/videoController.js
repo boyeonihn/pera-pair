@@ -80,7 +80,7 @@ export const deleteVideo = async (req, res) => {
   }
   await Video.findByIdAndDelete(id);
   req.flash('info', 'Video deletion successful');
-  return res.redirect(`/`);
+  return res.redirect('/');
 };
 
 export const getUpload = (req, res) =>
@@ -112,7 +112,7 @@ export const postUpload = async (req, res) => {
     return res.redirect(`/`);
   } catch (error) {
     const errorMsg = error._message;
-    return res.status(400).render('upload', {
+    return res.status(400).render('videos/upload', {
       pageTitle: `Uploading Video`,
       error: errorMsg,
     });
@@ -137,7 +137,7 @@ export const search = async (req, res) => {
   return res.render('search', { pageTitle: 'Search', keyword: false });
 };
 
-export const registerView = async (req, res) => {
+export const registerVideoView = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
 
@@ -149,7 +149,7 @@ export const registerView = async (req, res) => {
   return res.sendStatus(200);
 };
 
-export const createComment = async (req, res) => {
+export const createVideoComment = async (req, res) => {
   const {
     body: { text },
     session: {
@@ -180,14 +180,14 @@ export const createComment = async (req, res) => {
     return res.status(201).json({ newCommentId: newComment._id });
   } catch (error) {
     const errorMsg = error._message;
-    return res.status(400).render('watch', {
+    return res.status(400).render('videos/watch', {
       pageTitle: `Watch`,
       error: errorMsg,
     });
   }
 };
 
-export const deleteComment = async (req, res) => {
+export const deleteVideoComment = async (req, res) => {
   const {
     body: { id },
     session: {
