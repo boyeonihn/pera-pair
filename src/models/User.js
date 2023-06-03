@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }],
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+  postComments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PostComment' }],
 });
 
 userSchema.pre('save', async function () {
