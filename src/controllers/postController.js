@@ -1,5 +1,6 @@
 import { User } from '../models/User';
 import { Post } from '../models/Post';
+import { PostComment } from '../models/PostComment';
 
 export const getPost = async (req, res) => {
   const { id } = req.params;
@@ -46,3 +47,56 @@ export const getEdit = async (req, res) => {
   return res.render('posts/edit', { pageTitle: 'Edit Post', post });
 };
 
+
+export const registerPostView = async (req, res) => {
+  const { id } = req.params;
+  const post = await Post.findById(id);
+
+  if (!post) {
+    return res.sendStatus(404);
+  }
+  post.meta.views += 1;
+  await post.save();
+  return res.sendStatus(200);
+};
+
+export const createPostComment = async (req, res) => {
+  const {
+    body: { text },
+    session: {
+      user: { _id },
+    },
+    params: { id },
+  } = req;
+
+  try {
+    const post = await Post.findById(id);
+    const user = await User.findById(_id);
+
+    console.log('user is', user);
+    console.log('post is', post);
+
+    if (!post) {
+      return res.sendStatus(404);
+    }
+
+    const newComment = await PostComment.create({
+      text,
+      owner: _id,
+      post: id,
+    });
+
+    post.comments.push(newComment._id);
+    post.save();
+    user.postComments.push(newComment._id);
+    user.save();
+
+    return res.status(201).json({ newCommentId: newComment._id });
+  } catch (error) {
+    const errorMsg = error._message;
+    return res.status(400).render('posts/read', {
+      pageTitle: `Read`,
+      error: errorMsg,
+    });
+  }
+};
