@@ -1,4 +1,4 @@
-const form = document.getElementById('commentForm');
+const form = document.getElementById('videoCommentForm');
 const textarea = form.querySelector('textarea');
 const submitBtn = form.querySelector('button');
 const videoContainer = document.getElementById('videoContainer');
