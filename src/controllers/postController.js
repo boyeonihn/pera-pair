@@ -47,6 +47,9 @@ export const getEdit = async (req, res) => {
   return res.render('posts/edit', { pageTitle: 'Edit Post', post });
 };
 
+export const postEdit = (req, res) => {
+  return res.end();
+};
 
 export const registerPostView = async (req, res) => {
   const { id } = req.params;
@@ -99,4 +102,24 @@ export const createPostComment = async (req, res) => {
       error: errorMsg,
     });
   }
+};
+
+export const deletePostComment = async (req, res) => {
+  const {
+    body: { id },
+    session: {
+      user: { _id: userId },
+    },
+    params: { id: postId },
+  } = req;
+
+  const post = await Post.findById(postId);
+  if (!post) {
+    return res.sendStatus(404);
+  }
+  post.comments = post.comments.filter((comment) => comment !== id);
+  post.save();
+  await PostComment.findByIdAndDelete(id);
+  console.log('SUCCESS');
+  return res.sendStatus(200);
 };
