@@ -62,7 +62,16 @@ select {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.post__add-comments > form,
+.video__add-comments > form {
+  max-width: 100vw;
+  textarea {
+    height: 50px;
+  }
+}
+
 textarea {
+  width: 100%;
   resize: vertical;
   min-height: 300px;
   font-family: inherit;
@@ -70,5 +79,64 @@ textarea {
   font-size: inherit;
   background-color: $beige;
   border-radius: 5px;
-  padding: 15px 20px;
+  padding: 10px;
+}
+.post-create__form {
+  min-height: 300px;
+}
+
+form {
+  .button__container {
+    display: flex;
+    justify-content: flex-end;
+    .add__comment,
+    .cancel__comment {
+      font-family: inherit;
+      display: block;
+      background-color: $blue;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      color: $bg;
+      &:hover {
+        background-color: $bluehover;
+      }
+    }
+    .cancel__comment {
+      margin-left: 5px;
+      background-color: lightskyblue;
+      &:hover {
+        background-color: $blue;
+      }
+    }
+  }
+}
+
+.comments__box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin: 20px 0;
+  ul {
+    width: 100%;
+    .comment__unit {
+      display: flex;
+      background-color: wheat;
+      margin-bottom: 10px;
+      padding: 10px;
+      align-items: center;
+      .delete-icon {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      .comment__owner-data {
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+  }
 }

@@ -1,8 +1,9 @@
-const form = document.getElementById('postCommentForm');
+const form = document.querySelector('.post__add-comments > form');
+console.log(form);
 const textarea = form.querySelector('textarea');
 const submitBtn = form.querySelector('button');
 const postContainer = document.getElementById('postContainer');
-const postComments = document.querySelectorAll('.video__comment');
+const postComments = document.querySelectorAll('.comment__unit');
 const postId = postContainer.dataset.id;
 
 const handleViewCount = () => {
@@ -31,20 +32,20 @@ const deleteComment = async (event) => {
 };
 
 const addComment = (commentInfo) => {
-  //   const postComments = document.querySelector('.posts__comments ul');
-  //   const comment = document.createElement('li');
-  //   comment.classList.add('post__comment');
-  //   comment.dataset.id = commentInfo.commentId;
-  //   comment.innerHTML = `
-  //   <span>
-  //   <a href="/users/${commentInfo.id}">${commentInfo.name}</a>
-  //   </span>
-  //   <span>${commentInfo.createdAt}</span>
-  //   <span><i class="fa-solid fa-delete-left"></i></span>
-  //   <p>${commentInfo.text}</p>
-  //   `;
-  //   comment.addEventListener('click', deleteComment);
-  //   postComments.prepend(comment);
+  const postComments = document.querySelector('.comments__box ul');
+  const comment = document.createElement('li');
+  comment.classList.add('.comment__unit');
+  comment.dataset.id = commentInfo.commentId;
+  comment.innerHTML = `
+    <span>
+    <a href="/users/${commentInfo.id}">${commentInfo.name}</a>
+    </span>
+    <span>${commentInfo.createdAt}</span>
+    <span class="delete-icon"><i class="fa-solid fa-delete-left"></i></span>
+    <p>${commentInfo.text}</p>
+    `;
+  comment.addEventListener('click', deleteComment);
+  postComments.prepend(comment);
 };
 
 const handleSubmit = async (event) => {
@@ -54,7 +55,6 @@ const handleSubmit = async (event) => {
     return;
   }
   const text = textarea.value;
-  console.log(text, 'text');
 
   if (text === '') {
     return;
@@ -78,12 +78,12 @@ const handleSubmit = async (event) => {
     const currentTime = new Date();
     const commentInfo = {
       text,
-      createdAt: currentTime.toISOString(),
+      createdAt: currentTime.toISOString().split('T'),
       user: id,
       name,
       commentId,
     };
-    // addComment(commentInfo);
+    addComment(commentInfo);
   }
 };
 

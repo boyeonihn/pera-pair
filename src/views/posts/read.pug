@@ -24,6 +24,10 @@ block content
             img(src=post.fileUrl crossorigin).post__photo
             p.post__description=post.text
         section.post__add-comments
+            h2 Comments
+            include ../partials/commentForm
+        section.comments__box 
+            ul
                 each comment in post.comments.reverse()
                     +comment(comment)
 

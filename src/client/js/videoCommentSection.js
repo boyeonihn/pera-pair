@@ -1,14 +1,15 @@
-const form = document.getElementById('videoCommentForm');
+const form = document.querySelector('.video__add-comments > form');
+console.log(form);
 const textarea = form.querySelector('textarea');
 const submitBtn = form.querySelector('button');
 const videoContainer = document.getElementById('videoContainer');
-const videoComments = document.querySelectorAll('.video__comment');
+const videoComments = document.querySelectorAll('.comment__unit');
 const videoId = videoContainer.dataset.id;
 
 const deleteComment = async (event) => {
   const clickedEl = event.target;
   if (clickedEl.tagName.toLowerCase() === 'i') {
-    const targetCommentEl = clickedEl.closest('li.video__comment');
+    const targetCommentEl = clickedEl.closest('li.comment__unit');
     const id = targetCommentEl.dataset.id;
 
     await fetch(`/api/videos/${videoId}/comment`, {
@@ -24,17 +25,21 @@ const deleteComment = async (event) => {
 };
 
 const addComment = (commentInfo) => {
-  const videoComments = document.querySelector('.video__comments ul');
+  const videoComments = document.querySelector('.comments__box ul');
   const comment = document.createElement('li');
-  comment.classList.add('video__comment');
+  comment.classList.add('comment__unit');
   comment.dataset.id = commentInfo.commentId;
   comment.innerHTML = `
+  <section class="comment__owner-data">
+  <div class="comment__owner-data__top">
   <span>
   <a href="/users/${commentInfo.id}">${commentInfo.name}</a>
   </span>
-  <span>${commentInfo.createdAt}</span>
-  <span><i class="fa-solid fa-delete-left"></i></span>
+  <span>${commentInfo.createdAt.slice(0, 10)}</span>
+  </div>
   <p>${commentInfo.text}</p>
+  </section>
+  <span class="delete-icon"><i class="fa-solid fa-delete-left"></i></span>
   `;
 
   comment.addEventListener('click', deleteComment);
@@ -71,7 +76,7 @@ const handleSubmit = async (event) => {
     const currentTime = new Date();
     const commentInfo = {
       text,
-      createdAt: currentTime.toISOString(),
+      createdAt: currentTime.toISOString().split('T'),
       user: id,
       name,
       commentId,
