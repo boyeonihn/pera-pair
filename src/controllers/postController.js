@@ -123,3 +123,24 @@ export const deletePostComment = async (req, res) => {
   console.log('SUCCESS');
   return res.sendStatus(200);
 };
+
+export const getTag = async (req, res) => {
+  const id = req.params.id.toLowerCase();
+
+  const regexPattern = /^[A-Za-z-]+$/;
+  if (regexPattern.test(id)) {
+    // Handle the request for valid IDs
+
+    const posts = await Post.find({ topic: id })
+      .sort({ createdAt: 'desc' })
+      .populate('owner');
+    return res.render('posts/tag', {
+      pageTitle: `Posts under ${id} tag`,
+      posts,
+      id,
+    });
+  } else {
+    // Handle the request for invalid IDs
+    res.status(400).send('Invalid ID format');
+  }
+};
