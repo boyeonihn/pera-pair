@@ -1,0 +1,10 @@
+mixin post(post)
+    div.mixin__data.mixin__data__post
+        a(href=`/posts/${post.id}`)
+            span.mixin__title=post.title
+        div.mixin__meta
+            span
+                a(href=`/users/${post.owner._id}`) @#{post.owner.name} • 
+            span #{post.meta.views} views
+            span.mixin__post__topic
+                a(href=`/posts/tag/${post.topic}`) #{post.topic}
