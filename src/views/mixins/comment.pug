@@ -1,14 +1,16 @@
 mixin comment(comment)
-    li.video__comment(data-id=`${comment._id}`)
+    li.comment__unit(data-id=`${comment._id}`)
+        if comment.owner.avatarUrl
+            div.avatar-mini
+        else
+            div.avatar-default-mini
+                i.fa-solid.fa-user
         section.comment__owner-data
-            if comment.owner.avatarUrl
-                div.avatar-mini
-            else
-                div.avatar-default-mini
-            span
-                a(href=`/users/${comment.owner._id}`) #{comment.owner.name}
-            span=comment.createdAt
+            div.comment__owner-data__top
+                span
+                    a(href=`/users/${comment.owner._id}`) @#{comment.owner.name}
+                span=comment.createdAt
+            p=comment.text
         if (loggedIn  && String(comment.owner._id) === String(loggedInUser._id))
-            span
+            span.delete-icon
                 i.fa-solid.fa-delete-left
-        p=comment.text
