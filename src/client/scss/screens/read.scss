@@ -1,11 +1,27 @@
 .post__data {
-  margin-top: 20px;
+  margin: 20px 0;
   display: flex;
   flex-direction: column;
+
+  .post__heading {
+    display: flex;
+    align-items: center;
+
+    .post__title {
+      font-weight: bold;
+      font-size: 26px;
+      margin-bottom: 10px;
+      margin-right: 5px;
+    }
+    .post__topic {
+      font-weight: 600;
+      color: palevioletred;
+    }
+  }
+
   .post__owner-container {
     display: flex;
     align-items: center;
-    border: 1px solid $blue;
     div.avatar-default-mini {
       margin-right: 5px;
     }
@@ -23,11 +39,7 @@
       }
     }
   }
-  .post__title {
-    font-weight: bold;
-    font-size: 26px;
-    margin-bottom: 5px;
-  }
+
   .post__createdAt {
     font-size: 12px;
   }
@@ -77,7 +89,14 @@
 }
 
 .post__photo {
+  display: block;
+  margin: 20px;
   object-fit: cover;
-  max-width: 700px;
+  max-width: 500px;
   border-radius: 10px;
+}
+
+.post__description,
+.post__createdAt {
+  margin: 0 30px;
 }

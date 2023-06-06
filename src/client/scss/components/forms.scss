@@ -130,6 +130,7 @@ form {
       margin-bottom: 10px;
       padding: 10px;
       align-items: center;
+      border-radius: 8px;
       .delete-icon {
         &:hover {
           cursor: pointer;
@@ -140,7 +141,22 @@ form {
         display: flex;
         flex-direction: column;
         width: 100%;
+        p {
+          margin-top: 5px;
+        }
       }
     }
+  }
+}
+
+.comment__owner-data__top {
+  display: flex;
+  align-items: center;
+  .comment__owner-data__name {
+    margin-right: 5px;
+  }
+
+  .comment__owner-data__date {
+    font-size: 0.75rem;
   }
 }
