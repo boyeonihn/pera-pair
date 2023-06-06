@@ -1,21 +1,22 @@
 extends base
 include mixins/video
-include mixins/post
+include mixins/post--home
 
 block content
-    section#section-video
-        h2.home__heading Recent videos
-        div.video-grid 
-            each videoUnit in videos
-                +video(videoUnit)
-            else 
-                span.empty_message No videos found. 
-        
-    section#section-post
-        h2.home__heading Recent posts
-        div.video-grid 
-            if posts
-                each post in posts
-                    +post(post)
-            else 
-                span.empty_message No posts found. 
+    main
+        section#section-video
+            h2.home__heading Recent videos
+            div.video-grid 
+                each videoUnit in videos
+                    +video(videoUnit)
+                else 
+                    span.empty_message No videos found. 
+            
+        section#section-post
+            h2.home__heading Recent posts
+            div
+                if posts
+                    each post in posts
+                        +post(post)
+                else 
+                    span.empty_message No posts found. 

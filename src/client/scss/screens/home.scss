@@ -1,14 +1,42 @@
-.home__heading {
-  font-size: 1.5rem;
-  font-weight: 600;
-  padding-bottom: 30px;
-}
-
-main {
-  border: 1px solid orange;
-}
 #section-video,
 #section-post {
   min-height: 300px;
-  border: 1px solid pink;
+  padding-top: 10px;
+}
+
+#section-video {
+  margin-bottom: 40px;
+}
+
+.home__heading {
+  text-decoration: $red wavy underline;
+}
+.mixin__data {
+  padding: 0px 10px;
+  .mixin__title {
+    font-size: 18px;
+    display: block;
+    margin-top: 10px;
+  }
+  .mixin__meta {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+  .mixin__post__topic {
+    margin-left: 5px;
+    color: palevioletred;
+    font-weight: 600;
+  }
+}
+.mixin__post__comments {
+  font-size: 12px;
+  padding: 0px 15px;
+}
+
+.mixin__data__post {
+  padding: 15px;
+  border-radius: 15px;
+  &:hover {
+    background-color: lightgoldenrodyellow;
+  }
 }
