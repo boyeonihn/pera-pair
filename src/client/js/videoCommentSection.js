@@ -35,7 +35,11 @@ const addComment = (commentInfo) => {
   <span>
   <a href="/users/${commentInfo.id}">${commentInfo.name}</a>
   </span>
-  <span>${commentInfo.createdAt.slice(0, 10)}</span>
+  <span>${commentInfo.createdAt
+    .toISOString()
+    .split('T')
+    .join(' ')
+    .slice(0, 16)}</span>
   </div>
   <p>${commentInfo.text}</p>
   </section>

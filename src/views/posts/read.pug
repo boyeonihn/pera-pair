@@ -20,7 +20,7 @@ block content
                             a(href=`${post.id}/edit`) Edit Post
                         button.post__button
                             a(href=`${post.id}/delete`) Delete Post
-            small.post__createdAt=post.createdAt
+            small.post__createdAt=post.createdAt.toISOString().split('T').join(' ').slice(0,16)
             img(src=post.fileUrl crossorigin).post__photo
             p.post__description=post.text
         section.post__add-comments

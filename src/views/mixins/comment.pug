@@ -7,9 +7,9 @@ mixin comment(comment)
                 i.fa-solid.fa-user
         section.comment__owner-data
             div.comment__owner-data__top
-                span
+                span.comment__owner-data__name
                     a(href=`/users/${comment.owner._id}`) @#{comment.owner.name}
-                span=comment.createdAt
+                span.comment__owner-data__date=comment.createdAt.toISOString().split('T').join(' ').slice(0,16)
             p=comment.text
         if (loggedIn  && String(comment.owner._id) === String(loggedInUser._id))
             span.delete-icon

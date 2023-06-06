@@ -40,7 +40,11 @@ const addComment = (commentInfo) => {
     <span>
     <a href="/users/${commentInfo.id}">${commentInfo.name}</a>
     </span>
-    <span>${commentInfo.createdAt}</span>
+    <span>${commentInfo.createdAt
+      .toISOString()
+      .split('T')
+      .join(' ')
+      .slice(0, 16)}</span>
     <span class="delete-icon"><i class="fa-solid fa-delete-left"></i></span>
     <p>${commentInfo.text}</p>
     `;

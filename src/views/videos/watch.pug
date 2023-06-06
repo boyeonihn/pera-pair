@@ -37,7 +37,7 @@ block content
                             a(href=`${video.id}/delete`) Delete Video
             
             div.video__description
-                small.video__createdAt=video.createdAt
+                small.video__createdAt=video.createdAt.toISOString().split('T').join(' ').slice(0,16)
                 small
                     each hashtag in video.hashtags
                         span #{hashtag}
