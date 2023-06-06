@@ -75,3 +75,9 @@
     padding: 10px;
   }
 }
+
+.post__photo {
+  object-fit: cover;
+  max-width: 700px;
+  border-radius: 10px;
+}

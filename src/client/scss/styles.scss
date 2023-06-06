@@ -12,6 +12,7 @@
 @import './components/social-login.scss';
 @import './components/video-player.scss';
 @import './components/message.scss';
+@import './components/search.scss';
 
 //Screens
 @import './screens/search.scss';
@@ -43,5 +44,10 @@ main {
   margin: 0 auto;
   margin-top: 50px;
   padding: 0 50px;
-  padding-right: 50px;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
 }

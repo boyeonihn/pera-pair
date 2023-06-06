@@ -7,6 +7,13 @@
   gap: 50px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
+
+.post-grid {
+  display: grid;
+  gap: 50px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .auth-switch {
   text-align: center;
   margin-top: 40px;
@@ -17,8 +24,8 @@
 
 .avatar,
 .avatar-default {
-  width: 150px;
-  height: 150px;
+  width: 125px;
+  height: 125px;
   border-radius: 50%;
   margin-bottom: 10px;
 }
@@ -45,4 +52,10 @@
   width: 35px;
   height: 35px;
   margin-bottom: 0px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-bottom: 10px;
 }
