@@ -32,16 +32,17 @@ export const postCreate = async (req, res) => {
     file,
   } = req;
 
+  const user = await User.findById(_id);
   const post = await Post.create({
     title,
     topic,
     text,
     owner: _id,
-    fileUrl: file.location,
+    fileUrl: file ? file.location : '',
   });
 
-  const user = await User.findById(_id);
   user.posts.push(post._id);
+  user.save();
   return res.redirect('/');
 };
 
@@ -155,7 +156,6 @@ export const deletePostComment = async (req, res) => {
   post.comments = post.comments.filter((comment) => comment !== id);
   post.save();
   await PostComment.findByIdAndDelete(id);
-  console.log('SUCCESS');
   return res.sendStatus(200);
 };
 
