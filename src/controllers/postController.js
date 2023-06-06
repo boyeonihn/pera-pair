@@ -47,8 +47,35 @@ export const getEdit = async (req, res) => {
   return res.render('posts/edit', { pageTitle: 'Edit Post', post });
 };
 
-export const postEdit = (req, res) => {
-  return res.end();
+export const postEdit = async (req, res) => {
+  const {
+    body: { title, text },
+    session: {
+      user: { _id },
+    },
+    params: { id },
+  } = req;
+
+  const post = await Post.findById(id);
+
+  if (!post) {
+    return res.render('404', { pageTitle: 'Post Not Found' });
+  }
+  if (String(post.owner._id) !== String(_id)) {
+    req.flash('error', 'Not authorized to edit');
+    return res.status(403).redirect('/');
+  }
+
+  try {
+    await Post.findByIdAndUpdate(id, {
+      title,
+      text,
+    });
+    req.flash('info', 'Post updated');
+    return res.redirect(`/posts/${id}`);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const registerPostView = async (req, res) => {
