@@ -4,7 +4,15 @@ import { PostComment } from '../models/PostComment';
 
 export const getPost = async (req, res) => {
   const { id } = req.params;
-  const post = await Post.findById(id).populate('owner');
+  const post = await Post.findById(id)
+    .populate('owner')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'owner',
+        model: 'User',
+      },
+    });
 
   if (!post) {
     return res.render('404', { pageTitle: 'Post Not Found' });
