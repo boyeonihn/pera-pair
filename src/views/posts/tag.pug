@@ -1,0 +1,9 @@
+extends ../base
+include ../mixins/post--search
+
+block content 
+    main
+        h1 Tag Results for: #{id}
+        section.search__results
+            each post in posts
+                +post(post)

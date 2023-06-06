@@ -1,0 +1,5 @@
+form.commentForm(data-login=`${ loggedIn ? loggedInUser._id : ''}`, data-name=`${ loggedIn ? loggedInUser.name : ''}`)
+    textarea(spellcheck="true" placeholder='Write a nice comment...')
+    div.button__container
+        button.add__comment Add Comment
+        button.cancel__comment Cancel
