@@ -10,10 +10,26 @@ const s3 = new S3Client({
   },
 });
 
-const multerUploader = multerS3({
+const s3ImageUploader = multerS3({
   s3: s3,
   bucket: 'peraxpair',
   acl: 'public-read',
+  key: function (request, file, ab_callback) {
+    const newFileName = Date.now() + '-' + file.originalname;
+    const fullPath = 'images/' + newFileName;
+    ab_callback(null, fullPath);
+  },
+});
+
+const s3VideoUploader = multerS3({
+  s3: s3,
+  bucket: 'peraxpair',
+  acl: 'public-read',
+  key: function (request, file, ab_callback) {
+    const newFileName = Date.now() + '-' + file.originalname;
+    const fullPath = 'videos/' + newFileName;
+    ab_callback(null, fullPath);
+  },
 });
 
 export const localsMiddleware = (req, res, next) => {
@@ -55,7 +71,7 @@ export const uploadAvatar = multer({
   limits: {
     fileSize: 3000000,
   },
-  storage: multerUploader,
+  storage: s3ImageUploader,
 });
 
 export const uploadVideo = multer({
@@ -63,7 +79,7 @@ export const uploadVideo = multer({
   limits: {
     fileSize: 10000000,
   },
-  storage: multerUploader,
+  storage: s3VideoUploader,
 });
 
 export const uploadPost = multer({
@@ -71,5 +87,5 @@ export const uploadPost = multer({
   limits: {
     filSize: 10000000,
   },
-  storage: multerUploader,
+  storage: s3ImageUploader,
 });
