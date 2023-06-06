@@ -4,8 +4,10 @@ include ../mixins/comment
 block content
     main
         section.post__data#postContainer(data-id=post._id)
-            h1.post__title=post.title
-            h2.post__topic Topic: ##{post.topic}
+            div.post__heading
+                h1.post__title=post.title
+                h3.post__topic
+                    a(href=`/posts/tag/${post.topic}`) ##{post.topic}
             div.post__owner-container
                 if post.owner.avatarUrl
                     div.avatar-mini
