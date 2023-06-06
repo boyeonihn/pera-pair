@@ -112,9 +112,6 @@ export const createPostComment = async (req, res) => {
     const post = await Post.findById(id);
     const user = await User.findById(_id);
 
-    console.log('user is', user);
-    console.log('post is', post);
-
     if (!post) {
       return res.sendStatus(404);
     }
