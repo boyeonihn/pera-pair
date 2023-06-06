@@ -1,19 +1,21 @@
 extends ../base
 
 block content 
-    h1=pageTitle
-    form(method="POST" enctype="multipart/form-data")
-        label(for="title") Post Title
-        input(type="text", required, id="title", name="title", placeholder="Title")
-        label(for="topic") Post Topic
-        select(name="topic" id="topic" required)
-            option(value="") --Please choose an option--
-            option(value="pet-sitting") Pet-sitting
-            option(value="playdate") Playdate
-            option(value="question") Question
-            option(value="other") Other
-        label(for="text") Post content
-        textarea(id="text" name="text" spellcheck="true" placeholder='Write the content of your post' required)
-        label(for="picture") Picture (optional)
-        input(type="file" id="picture" name="picture", accept=".png, .jpg, .jepg")
-        input(type="submit" value="Create Post")
+    main.main-with-form
+        h1=pageTitle
+        form(method="POST" enctype="multipart/form-data").post-create__form
+            label(for="title") Post Title
+            input(type="text", required, id="title", name="title", placeholder="Title")
+            label(for="topic") Post Topic
+            select(name="topic" id="topic" required)
+                option(value="") --Please choose an option--
+                option(value="pet-sitting") Pet-sitting
+                option(value="playdate") Playdate
+                option(value="packwalk") Packwalk
+                option(value="question") Question
+                option(value="other") Other
+            label(for="text") Post content
+            textarea(id="text" name="text" spellcheck="true" placeholder='Write the content of your post' required)
+            label(for="picture") Picture (optional)
+            input(type="file" id="picture" name="picture", accept=".png, .jpg, .jepg")
+            input(type="submit" value="Create Post")

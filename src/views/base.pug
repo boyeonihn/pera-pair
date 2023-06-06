@@ -11,8 +11,7 @@ html(lang="en")
             +message('error', messages.error)
         if messages.info 
             +message('info', messages.info)
-        main
-            block content
+        block content
         include partials/footer
     script(src="/static/js/main.js")
     block scripts

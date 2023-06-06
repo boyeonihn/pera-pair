@@ -2,33 +2,28 @@ extends ../base
 include ../mixins/comment
 
 block content
-    section.post__data#postContainer(data-id=post._id)
-        h1.post__title=post.title
-        h2.post__topic Topic: #{post.topic}
-        div.post__owner-container
-            if post.owner.avatarUrl
-                div.avatar-mini
-            else 
-                div.avatar-default-mini
-                    i.fa-solid.fa-user
-            small
-                a(href=`/users/${post.owner._id}`) #{post.owner.name}
-            if (loggedIn)
-                if String(post.owner._id) === String(loggedInUser._id)
-                    button.post__button
-                        a(href=`${post.id}/edit`) Edit Post
-                    button.post__button
-                        a(href=`${post.id}/delete`) Delete Post
-        small.post__createdAt=post.createdAt
-        p.post__description=post.text
-    section.comment__container
-        h2 Comments
-        form.post__comment-form#postCommentForm(data-login=`${ loggedIn ? loggedInUser._id : ''}`, data-name=`${ loggedIn ? loggedInUser.name : ''}`)
-            textarea(spellcheck="true" placeholder='Write a nice comment...')
-            button.add__comment Add Comment
-    section.post__comments 
-        ul
-            if comments
+    main
+        section.post__data#postContainer(data-id=post._id)
+            h1.post__title=post.title
+            h2.post__topic Topic: ##{post.topic}
+            div.post__owner-container
+                if post.owner.avatarUrl
+                    div.avatar-mini
+                else 
+                    div.avatar-default-mini
+                        i.fa-solid.fa-user
+                small
+                    a(href=`/users/${post.owner._id}`) @#{post.owner.name}
+                if (loggedIn)
+                    if String(post.owner._id) === String(loggedInUser._id)
+                        button.post__button
+                            a(href=`${post.id}/edit`) Edit Post
+                        button.post__button
+                            a(href=`${post.id}/delete`) Delete Post
+            small.post__createdAt=post.createdAt
+            img(src=post.fileUrl crossorigin).post__photo
+            p.post__description=post.text
+        section.post__add-comments
                 each comment in post.comments.reverse()
                     +comment(comment)
 
