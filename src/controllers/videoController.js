@@ -36,11 +36,14 @@ export const getEdit = async (req, res) => {
 };
 
 export const postEdit = async (req, res) => {
-  const { id } = req.params;
   const {
-    user: { _id },
-  } = req.session;
-  const { title, description, hashtags } = req.body;
+    params: { id },
+    session: {
+      user: { _id },
+    },
+    body: { title, description, hashtags },
+  } = req;
+
   const video = await Video.findById(id);
   if (!video) {
     return res.status(404).render('404', { pageTitle: 'Video Not Found' });
