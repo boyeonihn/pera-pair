@@ -3,10 +3,10 @@ extends ../base
 block content 
     main.main-with-form
         section.upload__container 
-            h4 Upload Video
+            h1 Upload Video
             section.upload__video 
                 video#preview
-                button#recordBtn Start Recording
+                button#recordBtn Record a Video
             if error 
                 span=error
             form(method="POST" enctype="multipart/form-data")

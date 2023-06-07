@@ -1,8 +1,10 @@
 import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 const recordBtn = document.getElementById('recordBtn');
 const video = document.getElementById('preview');
+const uploadContainer = document.querySelector('.upload__video');
 
 const recordStatus = {
+  requestRecord: 'Record a Video',
   startText: 'Start Recording',
   stopText: 'Stop Recording',
   downloadText: 'Download Recording',
@@ -20,6 +22,10 @@ const files = {
   thumb: 'thumbnail.jpg',
 };
 
+const setupRecording = () => {
+  init();
+  recordBtn.innerText = recordStatus.startText;
+};
 const downloadFile = (fileUrl, fileName) => {
   const link = document.createElement('a');
   link.href = fileUrl;
@@ -95,7 +101,9 @@ const handleDownload = async () => {
   recordBtn.innerText = recordStatus.recordAgain;
 };
 const handleRecording = () => {
-  if (recordBtn.innerText === recordStatus.startText) {
+  if (recordBtn.innerText === recordStatus.requestRecord) {
+    setupRecording();
+  } else if (recordBtn.innerText === recordStatus.startText) {
     startRecording();
   } else if (recordBtn.innerText === recordStatus.stopText) {
     stopRecording();
@@ -120,5 +128,4 @@ const init = async () => {
   }
 };
 
-init();
 recordBtn.addEventListener('click', handleRecording);
