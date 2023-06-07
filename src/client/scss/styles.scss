@@ -33,6 +33,8 @@ a {
 }
 
 body {
+  display: flex;
+  justify-content: center;
   font-family: 'Roboto', sans-serif;
   background-color: $bg;
   color: $lightblue;
@@ -50,4 +52,9 @@ h1 {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 5px;
+}
+
+.bodyContainer {
+  max-width: 1250px;
+  width: 100vw;
 }
