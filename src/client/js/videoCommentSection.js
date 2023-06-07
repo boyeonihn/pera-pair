@@ -1,10 +1,10 @@
 const form = document.querySelector('.video__add-comments > form');
-console.log(form);
 const textarea = form.querySelector('textarea');
 const submitBtn = form.querySelector('button');
 const videoContainer = document.getElementById('videoContainer');
 const videoComments = document.querySelectorAll('.comment__unit');
 const videoId = videoContainer.dataset.id;
+const cancelBtn = form.querySelector('.cancel__comment');
 
 const deleteComment = async (event) => {
   const clickedEl = event.target;
@@ -29,22 +29,26 @@ const addComment = (commentInfo) => {
   const comment = document.createElement('li');
   comment.classList.add('comment__unit');
   comment.dataset.id = commentInfo.commentId;
+  const avatarUrl = form.dataset.avatarUrl;
+  const avatarPic = `<img src=${avatarUrl} crossorigin />`;
+  const defaultAvatarPic = `<i class="fa-solid fa-user"></i>`;
+  const createdAt = commentInfo.createdAt.join(' ').slice(0, 16);
+
   comment.innerHTML = `
-  <section class="comment__owner-data">
-  <div class="comment__owner-data__top">
-  <span>
-  <a href="/users/${commentInfo.id}">${commentInfo.name}</a>
-  </span>
-  <span>${commentInfo.createdAt
-    .toISOString()
-    .split('T')
-    .join(' ')
-    .slice(0, 16)}</span>
-  </div>
-  <p>${commentInfo.text}</p>
-  </section>
-  <span class="delete-icon"><i class="fa-solid fa-delete-left"></i></span>
-  `;
+    <div class=${avatarUrl ? 'avatar-mini' : 'avatar-default-mini'}>
+    ${avatarUrl ? avatarPic : defaultAvatarPic}
+    </div>
+    <section class="comment__owner-data">
+    <div class="comment__owner-data__top">
+    <span class="comment__owner-data__name">
+    <a href="/users/${commentInfo.user}">@${commentInfo.name}</a>
+    </span>
+    <span class="comment__owner-data__date">${createdAt}</span>
+    </div>
+    <p>${commentInfo.text}</p>
+    </section>
+    <span class="delete-icon"><i class="fa-solid fa-delete-left"></i></span>
+    `;
 
   comment.addEventListener('click', deleteComment);
   videoComments.prepend(comment);

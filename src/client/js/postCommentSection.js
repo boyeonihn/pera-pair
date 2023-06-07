@@ -1,10 +1,10 @@
 const form = document.querySelector('.post__add-comments > form');
-console.log(form);
 const textarea = form.querySelector('textarea');
 const submitBtn = form.querySelector('button');
 const postContainer = document.getElementById('postContainer');
 const postComments = document.querySelectorAll('.comment__unit');
 const postId = postContainer.dataset.id;
+const cancelBtn = form.querySelector('.cancel__comment');
 
 const handleViewCount = () => {
   fetch(`/api/posts/${postId}/view`, {
@@ -13,10 +13,11 @@ const handleViewCount = () => {
 };
 
 handleViewCount();
+
 const deleteComment = async (event) => {
   const clickedEl = event.target;
   if (clickedEl.tagName.toLowerCase() === 'i') {
-    const targetCommentEl = clickedEl.closest('li.post__comment');
+    const targetCommentEl = clickedEl.closest('li.comment__unit');
     const id = targetCommentEl.dataset.id;
 
     await fetch(`/api/posts/${postId}/comment`, {
@@ -34,19 +35,27 @@ const deleteComment = async (event) => {
 const addComment = (commentInfo) => {
   const postComments = document.querySelector('.comments__box ul');
   const comment = document.createElement('li');
-  comment.classList.add('.comment__unit');
+  comment.classList.add('comment__unit');
   comment.dataset.id = commentInfo.commentId;
+  const avatarUrl = form.dataset.avatarUrl;
+  const avatarPic = `<img src=${avatarUrl} crossorigin />`;
+  const defaultAvatarPic = `<i class="fa-solid fa-user"></i>`;
+
+  const createdAt = commentInfo.createdAt.join(' ').slice(0, 16);
   comment.innerHTML = `
-    <span>
-    <a href="/users/${commentInfo.id}">${commentInfo.name}</a>
+    <div class=${avatarUrl ? 'avatar-mini' : 'avatar-default-mini'}>
+    ${avatarUrl ? avatarPic : defaultAvatarPic}
+    </div>
+    <section class="comment__owner-data">
+    <div class="comment__owner-data__top">
+    <span class="comment__owner-data__name">
+    <a href="/users/${commentInfo.user}">@${commentInfo.name}</a>
     </span>
-    <span>${commentInfo.createdAt
-      .toISOString()
-      .split('T')
-      .join(' ')
-      .slice(0, 16)}</span>
-    <span class="delete-icon"><i class="fa-solid fa-delete-left"></i></span>
+    <span class="comment__owner-data__date">${createdAt}</span>
+    </div>
     <p>${commentInfo.text}</p>
+    </section>
+    <span class="delete-icon"><i class="fa-solid fa-delete-left"></i></span>
     `;
   comment.addEventListener('click', deleteComment);
   postComments.prepend(comment);
@@ -91,7 +100,11 @@ const handleSubmit = async (event) => {
   }
 };
 
+const handleClearComment = () => {
+  form.querySelector('textarea').value = '';
+};
 form.addEventListener('submit', handleSubmit);
+cancelBtn.addEventListener('click', handleClearComment);
 postComments.forEach((comment) =>
   comment.addEventListener('click', deleteComment)
 );
