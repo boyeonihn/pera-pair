@@ -23,6 +23,16 @@ block content
                         button.post__button
                             a(href=`${post.id}/delete`) Delete Post
             small.post__createdAt=post.createdAt.toISOString().split('T').join(' ').slice(0,16)
+            if post.topic.toLowerCase() === 'pet-sitting'
+                section.dateTimeLocationInfo
+                    p From: #{post.date}
+                    p Until: #{post.endDate}
+                    p Location: #{post.location}
+            if post.topic.toLowerCase() === 'playdate' || post.topic.toLowerCase() === 'packwalk'
+                section.dateTimeLocationInfo
+                    p Date: #{post.date}
+                    p Time: #{post.time}
+                    p Location: #{post.location}
             img(src=post.fileUrl crossorigin).post__photo
             p.post__description=post.text
         section.post__add-comments

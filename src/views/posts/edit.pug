@@ -1,9 +1,30 @@
 extends ../base
 
 block content 
-    main
+    main.main-with-form.form-no-flex
         h1 Update Post
         form(method="POST")
             input(name="title", placeholder="Post Title" value=post.title, required)
+            if post.topic.toLowerCase() === 'pet-sitting'
+                div.petsittingDate
+                    label(for="petsittingDateStart") Start Date
+                    input(type="date" name="petsittingDateStart" id="petsittingDateStart" value=post.date required) 
+                    label(for="petsittingDateEnd") End Date
+                    input(type="date" name="petsittingDateEnd" id="petsittingDateEnd" value=post.endDate required) 
+                div.locationInfo
+                    label(for="location") Location
+                    input(type="text" name="location" id="location" placeholder="Location" value=post.location required)
+            if post.topic.toLowerCase() === 'playdate' || post.topic.toLowerCase() === 'packwalk'
+                div.playwalkDate
+                    label(for="playwalkDate") Date
+                    input(type="date" name="playwalkDate" id="playwalkDate" value=post.date required) 
+                    label(for="playwalkTime") Time
+                    input(type="time" name="playwalkTime" id="playwalkTime" value=post.time required)
+                div.locationInfo
+                    label(for="location") Location
+                    input(type="text" name="location" id="location" placeholder="Location" value=post.location required)
             textarea(name="text", type="text", required, placeholder="Description")=post.text
             input(value="Save" type="submit")
+
+            
+            

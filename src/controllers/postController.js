@@ -33,13 +33,56 @@ export const postCreate = async (req, res) => {
   } = req;
 
   const user = await User.findById(_id);
-  const post = await Post.create({
-    title,
-    topic,
-    text,
-    owner: _id,
-    fileUrl: file ? file.location : '',
-  });
+  const topicChosen = topic.toLowerCase();
+
+  let post;
+
+  if (topicChosen === 'pet-sitting') {
+    const { petsittingDateStart, petsittingDateEnd, location } = req.body;
+    try {
+      post = await Post.create({
+        title,
+        topic,
+        text,
+        date: petsittingDateStart,
+        endDate: petsittingDateEnd,
+        location,
+        owner: _id,
+        fileUrl: file ? file.location : '',
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  } else if (topicChosen === 'packwalk' || topicChosen === 'playdate') {
+    const { playwalkDate, playwalkTime, location } = req.body;
+
+    try {
+      post = await Post.create({
+        title,
+        topic,
+        text,
+        time: playwalkTime,
+        date: playwalkDate,
+        location,
+        owner: _id,
+        fileUrl: file ? file.location : '',
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    try {
+      post = await Post.create({
+        title,
+        topic,
+        text,
+        owner: _id,
+        fileUrl: file ? file.location : '',
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   user.posts.push(post._id);
   user.save();
@@ -75,15 +118,49 @@ export const postEdit = async (req, res) => {
     return res.status(403).redirect('/');
   }
 
-  try {
-    await Post.findByIdAndUpdate(id, {
-      title,
-      text,
-    });
-    req.flash('info', 'Post updated');
-    return res.redirect(`/posts/${id}`);
-  } catch (err) {
-    console.error(err);
+  const topicChosen = post.topic.toLowerCase();
+  if (topicChosen === 'pet-sitting') {
+    const { petsittingDateStart, petsittingDateEnd, location } = req.body;
+    try {
+      await Post.findByIdAndUpdate(id, {
+        title,
+        text,
+        date: petsittingDateStart,
+        endDate: petsittingDateEnd,
+        location,
+      });
+      req.flash('info', 'Post updated');
+      return res.redirect(`/posts/${id}`);
+    } catch (err) {
+      console.error(err);
+    }
+  } else if (topicChosen === 'packwalk' || topicChosen === 'playdate') {
+    const { playwalkDate, playwalkTime, location } = req.body;
+
+    try {
+      await Post.findByIdAndUpdate(id, {
+        title,
+        text,
+        date: playwalkDate,
+        time: playwalkTime,
+        location,
+      });
+      req.flash('info', 'Post updated');
+      return res.redirect(`/posts/${id}`);
+    } catch (err) {
+      console.error(err);
+    }
+  } else {
+    try {
+      await Post.findByIdAndUpdate(id, {
+        title,
+        text,
+      });
+      req.flash('info', 'Post updated');
+      return res.redirect(`/posts/${id}`);
+    } catch (err) {
+      console.error(err);
+    }
   }
 };
 

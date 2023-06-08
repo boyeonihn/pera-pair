@@ -1,7 +1,7 @@
 extends ../base
 
 block content 
-    main.main-with-form
+    main.main-with-form.form-no-flex
         h1=pageTitle
         form(method="POST" enctype="multipart/form-data").post-create__form
             label(for="title") Post Title
@@ -14,8 +14,24 @@ block content
                 option(value="packwalk") Packwalk
                 option(value="question") Question
                 option(value="other") Other
+            div.petsittingDate
+                label(for="petsittingDateStart") Start Date
+                input(type="date" name="petsittingDateStart" id="petsittingDateStart") 
+                label(for="petsittingDateEnd") End Date
+                input(type="date" name="petsittingDateEnd" id="petsittingDateEnd") 
+            div.playwalkDate
+                label(for="playwalkDate") Date
+                input(type="date" name="playwalkDate" id="playwalkDate") 
+                label(for="playwalkTime") Time
+                input(type="time" name="playwalkTime" id="playwalkTime")
+            div.locationInfo
+                label(for="location") Location
+                input(type="text" name="location" id="location" placeholder="Location")
             label(for="text") Post content
             textarea(id="text" name="text" spellcheck="true" placeholder='Write the content of your post' required)
             label(for="picture") Picture (optional)
             input(type="file" id="picture" name="picture", accept=".png, .jpg, .jepg")
             input(type="submit" value="Create Post")
+
+block scripts
+    script(src="/static/js/createPost.js")
