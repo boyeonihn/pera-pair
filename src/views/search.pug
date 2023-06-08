@@ -2,19 +2,19 @@ extends base
 include mixins/video
 
 block content
-    main.main-with-form
+    main.main-with-form.main-with-search-form
+        if (!keyword)
+            span.empty__message Please enter a keyword!
         form(method="GET").search__form
             input(placeholder="Search by Title", name="keyword", type="text")
             button
                 i.fas.fa-search
 
-        div.video-grid
-            if videos 
-                h2 Results
+        if videos 
+            h2 Results
+            section.video-grid
                 each video in videos
                     +video(video)
-            else
-                if (!keyword)
-                    span Please enter a keyword!
-                else
-                    span.empty__message Sorry, nothing found with that search query.
+        else
+            if (keyword)
+                span.empty__message Sorry, nothing found with that search query.
