@@ -5,6 +5,10 @@ const postSchema = new mongoose.Schema({
   text: { type: String, trim: true, required: true },
   topic: { type: String, required: true },
   fileUrl: { type: String, default: '' },
+  date: { type: String, default: '' },
+  time: { type: String, default: '' },
+  endDate: { type: String, default: '' },
+  location: { type: String, default: '' },
   createdAt: { type: Date, required: true, default: Date.now },
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
   meta: {
