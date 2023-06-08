@@ -29,15 +29,16 @@ const addComment = (commentInfo) => {
   const comment = document.createElement('li');
   comment.classList.add('comment__unit');
   comment.dataset.id = commentInfo.commentId;
-  const avatarUrl = form.dataset.avatarUrl;
+  const avatarUrl = form.dataset.avatar;
   const avatarPic = `<img src=${avatarUrl} crossorigin />`;
-  const defaultAvatarPic = `<i class="fa-solid fa-user"></i>`;
   const createdAt = commentInfo.createdAt.join(' ').slice(0, 16);
 
   comment.innerHTML = `
-    <div class=${avatarUrl ? 'avatar-mini' : 'avatar-default-mini'}>
-    ${avatarUrl ? avatarPic : defaultAvatarPic}
-    </div>
+    ${
+      avatarUrl !== ''
+        ? avatarPic
+        : '<div class="avatar-default-mini><i class="fa-solid fa-user"></i></div>'
+    }
     <section class="comment__owner-data">
     <div class="comment__owner-data__top">
     <span class="comment__owner-data__name">
