@@ -16,7 +16,9 @@ block content
             else
                 div.avatar-default
                     i.fa-solid.fa-user
-            h3 #{user.name} : Guardian of #{user.pet}
+            h3 #{user.name}
+            if user.pet
+                h3 Guardian of #{user.pet}
         section.profile__videos
             h2 #{user.name}'s Videos
             div.video-grid
