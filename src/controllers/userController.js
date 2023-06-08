@@ -213,8 +213,11 @@ export const getChangePw = (req, res) => {
     );
     return res.redirect('/');
   }
-  res.render('users/change-password', { pageTitle: 'Change Password' });
+  return res.render('users/change-password', {
+    pageTitle: 'Change Password',
+  });
 };
+
 export const postChangePw = async (req, res) => {
   const pageTitle = 'Change Password';
   const {

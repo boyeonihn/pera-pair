@@ -24,7 +24,6 @@ userRouter
   .get(getEdit)
   .post(uploadAvatar.single('avatar'), postEdit);
 userRouter.get('/delete', remove);
-userRouter.get('/:id', getProfile);
 userRouter.get('/github/start', publicOnlyMiddleware, startGithubLogin);
 userRouter.get('/github/finish', publicOnlyMiddleware, finishGithubLogin);
 userRouter
@@ -32,3 +31,4 @@ userRouter
   .all(protectUrlMiddleware, passwordsUsersOnlyMiddleware)
   .get(getChangePw)
   .post(postChangePw);
+userRouter.get('/:id([0-9a-f]{24})', getProfile);
