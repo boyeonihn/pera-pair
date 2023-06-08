@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Inter:wght@600;700&family=Roboto:wght@400;700&display=swap');
 @import './config/_variables.scss';
 @import './config/_reset.scss';
+@import './config/mixin.scss';
 
 // Components
 @import './components/header.scss';
@@ -40,12 +41,39 @@ body {
   color: $lightblue;
 }
 
+header {
+  @include mobile-landscape {
+    max-width: 70vw;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    * {
+      font-size: 1.5rem;
+      padding-top: 15px;
+    }
+    #header__logo__name,
+    .header__logo__div > i {
+      font-size: 2.5rem;
+    }
+    .header__logo > span {
+      display: none;
+    }
+  }
+}
+
 main {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   margin-top: 50px;
   padding: 0 50px;
+
+  @include mobile-landscape {
+    max-width: 70vw;
+    * {
+      font-size: 1.5rem;
+    }
+  }
 }
 
 h1 {
@@ -57,4 +85,42 @@ h1 {
 .bodyContainer {
   max-width: 1250px;
   width: 100vw;
+}
+
+.main-with-form > form > * {
+  @include mobile-landscape {
+    font-size: 2rem;
+  }
+}
+
+.upload__container > form > * {
+  @include mobile-landscape {
+    font-size: 1.75rem;
+  }
+}
+
+.mixin__meta * {
+  font-size: 1rem;
+}
+
+.video-grid {
+  @include mobile-landscape {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+main > section * {
+  @include mobile-landscape {
+    font-size: 1.75rem;
+  }
+}
+
+.mixin__title {
+  @include mobile-landscape {
+    font-size: 1.75rem;
+  }
+
+  @include tablet {
+    font-size: 2rem;
+  }
 }

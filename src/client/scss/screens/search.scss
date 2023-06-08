@@ -1,8 +1,8 @@
 .search__form {
   margin-bottom: 60px;
   display: flex;
-  position: relative;
-  align-items: center;
+  justify-content: space-between;
+  width: 80vw;
   input {
     all: unset;
     padding: 15px 20px;
@@ -18,11 +18,13 @@
     all: unset;
   }
   button {
-    position: absolute;
-    right: 15px;
     font-size: 18px;
     background-color: rgba(0, 0, 0, 0);
     text-align: center;
     cursor: pointer;
   }
+}
+
+.empty__message {
+  margin-bottom: 10px;
 }
