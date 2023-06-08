@@ -97,6 +97,11 @@
 }
 
 .post__description,
-.post__createdAt {
+.post__createdAt,
+.dateTimeLocationInfo {
   margin: 0 30px;
+}
+
+.dateTimeLocationInfo {
+  margin-top: 30px;
 }

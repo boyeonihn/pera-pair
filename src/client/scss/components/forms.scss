@@ -4,6 +4,15 @@
   align-items: center;
 }
 
+.form-no-flex {
+  align-items: flex-start;
+}
+
+.form-no-flex textarea {
+  height: 300px;
+  width: 800px;
+}
+
 form {
   max-width: 420px;
   &:not(.search__form) {
@@ -158,5 +167,12 @@ form {
 
   .comment__owner-data__date {
     font-size: 0.75rem;
+  }
+}
+form {
+  label {
+    font-size: 14px;
+    margin: 10px 0;
+    display: block;
   }
 }
