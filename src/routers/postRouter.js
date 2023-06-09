@@ -7,6 +7,7 @@ import {
   postEdit,
   getPost,
   getTag,
+  getDelete,
 } from '../controllers/postController.js';
 
 export const postRouter = express.Router();
@@ -23,4 +24,8 @@ postRouter
   .all(protectUrlMiddleware)
   .get(getEdit)
   .post(postEdit);
+postRouter
+  .route('/:id([0-9a-f]{24})/delete')
+  .all(protectUrlMiddleware)
+  .get(getDelete);
 postRouter.get('/tag/:id', getTag);

@@ -253,3 +253,22 @@ export const getTag = async (req, res) => {
     res.status(400).send('Invalid ID format');
   }
 };
+
+export const getDelete = async (req, res) => {
+  const { id } = req.params;
+  const post = await Post.findById(id);
+  const {
+    user: { _id },
+  } = req.session;
+
+  if (!post) {
+    return res.status(404).render('404', { pageTitle: 'Post Not Found' });
+  }
+  if (String(post.owner._id) !== String(_id)) {
+    req.flash('error', 'Not authorized to delete');
+    return res.status(403).redirect('/');
+  }
+  await Post.findByIdAndDelete(id);
+  req.flash('info', 'Post deletion successful');
+  return res.redirect('/');
+};
