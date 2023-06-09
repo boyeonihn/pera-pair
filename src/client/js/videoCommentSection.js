@@ -30,15 +30,11 @@ const addComment = (commentInfo) => {
   comment.classList.add('comment__unit');
   comment.dataset.id = commentInfo.commentId;
   const avatarUrl = form.dataset.avatar;
-  const avatarPic = `<img src=${avatarUrl} crossorigin />`;
   const createdAt = commentInfo.createdAt.join(' ').slice(0, 16);
 
-  comment.innerHTML = `
-    ${
-      avatarUrl !== ''
-        ? avatarPic
-        : '<div class="avatar-default-mini><i class="fa-solid fa-user"></i></div>'
-    }
+  if (avatarUrl !== '') {
+    comment.innerHTML = `
+    <img class="avatar-mini" src=${avatarUrl} crossorigin />
     <section class="comment__owner-data">
     <div class="comment__owner-data__top">
     <span class="comment__owner-data__name">
@@ -50,9 +46,24 @@ const addComment = (commentInfo) => {
     </section>
     <span class="delete-icon"><i class="fa-solid fa-delete-left"></i></span>
     `;
+  } else {
+    comment.innerHTML = `
+    <div class="avatar-default-mini><i class="fa-solid fa-user"></i></div>
+    <section class="comment__owner-data">
+    <div class="comment__owner-data__top">
+    <span class="comment__owner-data__name">
+    <a href="/users/${commentInfo.user}">@${commentInfo.name}</a>
+    </span>
+    <span class="comment__owner-data__date">${createdAt}</span>
+    </div>
+    <p>${commentInfo.text}</p>
+    </section>
+    <span class="delete-icon"><i class="fa-solid fa-delete-left"></i></span>
+    `;
+  }
 
   comment.addEventListener('click', deleteComment);
-  videoComments.prepend(comment);
+  postComments.prepend(comment);
 };
 
 const handleSubmit = async (event) => {
