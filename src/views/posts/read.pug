@@ -16,7 +16,7 @@ block content
                         i.fa-solid.fa-user
                 small
                     a(href=`/users/${post.owner._id}`) @#{post.owner.name}
-                if (loggedIn)
+                if (loggedInUser)
                     if String(post.owner._id) === String(loggedInUser._id)
                         button.post__button
                             a(href=`${post.id}/edit`) Edit Post

@@ -1,7 +1,7 @@
 mixin comment(comment)
     li.comment__unit(data-id=`${comment._id}`)
         if comment.owner.avatarUrl
-            img.avatar-mini(src=`${loggedInUser.avatarUrl}`, crossorigin)
+            img.avatar-mini(src=`${comment.owner.avatarUrl}`, crossorigin)
         else
             div.avatar-default-mini
                 i.fa-solid.fa-user

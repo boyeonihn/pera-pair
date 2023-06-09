@@ -32,7 +32,7 @@ block content
                         i.fa-solid.fa-user
                 small.video__owner
                     a(href=`/users/${video.owner._id}`) @#{video.owner.name}
-                if (loggedIn)
+                if (loggedInUser)
                     if String(video.owner._id) === String(loggedInUser._id)
                         button.video__button
                             a(href=`${video.id}/edit`) Edit Video
