@@ -10,7 +10,7 @@ block content
                     a(href=`/posts/tag/${post.topic}`) ##{post.topic}
             div.post__owner-container
                 if post.owner.avatarUrl
-                    img.avatar-mini(src=`${post.owner.avatarUrl.avatarUrl}`, crossorigin)
+                    img.avatar-mini(src=`${post.owner.avatarUrl}`, crossorigin)
                 else 
                     div.avatar-default-mini
                         i.fa-solid.fa-user
