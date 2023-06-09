@@ -18,7 +18,6 @@ postRouter
   .get(getCreate)
   .post(uploadPost.single('picture'), postCreate);
 
-postRouter.get('/:id([0-9a-f]{24})', getPost);
 postRouter
   .route('/:id([0-9a-f]{24})/edit')
   .all(protectUrlMiddleware)
@@ -28,4 +27,4 @@ postRouter
   .route('/:id([0-9a-f]{24})/delete')
   .all(protectUrlMiddleware)
   .get(getDelete);
-postRouter.get('/tag/:id', getTag);
+postRouter.get('/tag/:id([0-9a-f]{24})', getTag);

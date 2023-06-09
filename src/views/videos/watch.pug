@@ -25,8 +25,11 @@ block content
         section.video__data
             p.video__title=video.title 
             div.video__owner-container
-                div.avatar-default-mini
-                    i.fa-solid.fa-user
+                if post.owner.avatarUrl
+                    img.avatar-mini(src=`${post.owner.avatarUrl.avatarUrl}`, crossorigin)
+                else 
+                    div.avatar-default-mini
+                        i.fa-solid.fa-user
                 small.video__owner
                     a(href=`/users/${video.owner._id}`) @#{video.owner.name}
                 if (loggedIn)
