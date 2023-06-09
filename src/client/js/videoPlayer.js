@@ -59,10 +59,6 @@ const formatTime = (seconds) => {
   return new Date(seconds * 1000).toISOString().substring(11, 19);
 };
 
-if (video.readyState >= 2) {
-  handleLoadedMetadata();
-}
-
 const handleLoadedMetadata = () => {
   const totalTimeSeconds = Math.floor(video.duration);
   timeline.max = Math.floor(video.duration);
@@ -150,6 +146,11 @@ const handleViewCount = () => {
     method: 'POST',
   });
 };
+
+if (video.readyState >= 2) {
+  handleLoadedMetadata();
+}
+
 playBtn.addEventListener('click', handlePlay);
 muteBtn.addEventListener('click', handleMute);
 volumeRange.addEventListener('input', handleVolumeChange);
